@@ -12,6 +12,7 @@ public class Action {
     }
 
     public void useAction(Pokemon owner) {
+        //what the action does
         if (type.equals("physical")) {
 
         }
@@ -21,5 +22,11 @@ public class Action {
         else if (type.equals("status")) {
 
         }
+    }
+
+    
+    public double efficacy(Action move, Pokemon defender){
+        //check types and use datatable to find efficacy
+        return 0;
     }
 }
