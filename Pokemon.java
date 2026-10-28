@@ -12,7 +12,7 @@ public class Pokemon {
     public int spDef;
     public int speed;
 
-    public static Pokemon(String name, String[] status, String[] moveList, int HP, int atk, int def, int spAtk, int spDef, int speed){
+    public Pokemon(String name, String[] status, String[] moveList, int HP, int atk, int def, int spAtk, int spDef, int speed){
         this.name = name;
         this.status = status;
         this.moveList = moveList;
