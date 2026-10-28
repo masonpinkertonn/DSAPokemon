@@ -7,7 +7,7 @@ public class Trainer {
         this.trainerName = name;
     }
 
-    public Action chooseAction() {
+    public String chooseAction() {
         return null;
     }
 
@@ -17,5 +17,13 @@ public class Trainer {
 
     public void nextPokemon() {
         
+    }
+
+    public Pokemon switchPokemon() {
+        return null;
+    }
+
+    public Action fight() {
+        return null;
     }
 }

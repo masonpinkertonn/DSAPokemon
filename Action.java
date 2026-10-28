@@ -3,12 +3,14 @@ public class Action {
     public String description;
     public String attackType;
     public String type;
+    public int pp;
     
-    public Action(String name, String description, String attackType, String type) {
+    public Action(String name, String description, String attackType, String type, int pp) {
         this.name = name;
         this.description = description;
         this.attackType = attackType;
         this.type = type;
+        this.pp = pp;
     }
 
     public void useAction(Pokemon owner) {
@@ -21,5 +23,9 @@ public class Action {
         else if (type.equals("status")) {
 
         }
+    }
+
+    public String display() {
+        return null;
     }
 }
