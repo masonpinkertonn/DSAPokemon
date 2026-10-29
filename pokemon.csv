@@ -1,0 +1,152 @@
+name,type1,type2,hp,attack,defense,spAttack,spDefense,speed,move1,move2,move3,move4
+Bulbasaur,grass,poison,131,80,80,96,96,76,Sleep Powder,Giga Drain,Sludge Bomb,Double-Edge
+Ivysaur,grass,poison,146,93,94,111,111,91,Sleep Powder,Swords Dance,Leaf Storm,Sludge Bomb
+Venusaur,grass,poison,166,113,114,131,131,111,Sleep Powder,Toxic,Energy Ball,Sludge Bomb
+Charmander,fire,,125,83,74,91,81,96,Overheat,Thunder Punch,Dragon Pulse,Focus Blast
+Charmeleon,fire,,144,95,89,111,96,111,Swords Dance,Fire Blast,Body Slam,Dragon Pulse
+Charizard,fire,flying,164,115,109,140,116,131,Will-O-Wisp,Flamethrower,Hurricane,Focus Blast
+Squirtle,water,,130,79,96,81,95,74,Surf,Ice Beam,Double-Edge,Zen Headbutt
+Wartortle,water,,145,94,111,96,111,89,Surf,Body Slam,Blizzard,Zen Headbutt
+Blastoise,water,,165,114,131,116,136,109,Hydro Pump,Earthquake,Ice Beam,Double-Edge
+Caterpie,bug,,131,61,66,51,51,76,Tackle,Electroweb,String Shot,none
+Metapod,bug,,136,51,86,56,56,61,Electroweb,Tackle,Harden,Iron Defense
+Butterfree,bug,flying,146,76,81,121,111,101,Sleep Powder,Bug Buzz,Air Slash,Energy Ball
+Weedle,bug,poison,126,66,61,51,51,81,Poison Sting,Electroweb,String Shot,none
+Kakuna,bug,poison,131,56,81,56,56,66,Poison Sting,Electroweb,Harden,Iron Defense
+Beedrill,bug,poison,151,121,71,76,111,106,X-Scissor,Poison Jab,Drill Run,Aerial Ace
+Pidgey,normal,flying,126,76,71,66,66,87,Agility,Quick Attack,Brave Bird,Heat Wave
+Pidgeotto,normal,flying,149,91,86,81,81,102,Agility,Quick Attack,Brave Bird,Heat Wave
+Pidgeot,normal,flying,169,111,106,101,101,132,Quick Attack,Brave Bird,Heat Wave,Steel Wing
+Rattata,normal,,116,87,66,56,66,103,Double-Edge,Wild Charge,Crunch,Iron Tail
+Raticate,normal,,141,112,91,81,101,128,Swords Dance,Double-Edge,Crunch,Wild Charge
+Spearow,normal,flying,126,91,61,62,62,101,Agility,Leer,Quick Attack,Drill Peck
+Fearow,normal,flying,151,121,96,92,92,131,Quick Attack,Drill Peck,Drill Run,Steel Wing
+Ekans,poison,,121,91,75,71,85,86,Glare,Gunk Shot,Earthquake,Double-Edge
+Arbok,poison,,146,126,100,96,110,111,Glare,Gunk Shot,Earthquake,Double-Edge
+Pikachu,electric,,121,86,71,81,81,121,Volt Tackle,Surf,Play Rough,Body Slam
+Raichu,electric,,146,121,86,121,111,141,Nasty Plot,Thunderbolt,Surf,Focus Blast
+Sandshrew,ground,,136,106,116,51,61,71,Swords Dance,Earthquake,Stone Edge,Double-Edge
+Sandslash,ground,,161,131,141,76,86,96,Swords Dance,Earthquake,Stone Edge,Double-Edge
+Nidoran-F,poison,,141,78,83,71,71,72,Sludge Bomb,Body Slam,Thunderbolt,Blizzard
+Nidorina,poison,,156,93,98,86,86,87,Sludge Bomb,Body Slam,Thunderbolt,Blizzard
+Nidoqueen,poison,ground,176,123,118,106,116,107,Sludge Wave,Earth Power,Ice Beam,Mega Kick
+Nidoran-M,poison,,132,88,71,71,71,81,Poison Jab,Body Slam,Drill Run,Iron Tail
+Nidorino,poison,,147,103,88,86,86,96,Poison Jab,Body Slam,Drill Run,Iron Tail
+Nidoking,poison,ground,167,133,108,116,106,116,Sludge Wave,Earth Power,Fire Blast,Ice Beam
+Clefairy,fairy,,156,76,79,91,96,66,Thunder Wave,Sing,Moonblast,Thunderbolt
+Clefable,fairy,,181,101,104,126,121,91,Thunder Wave,Moonblast,Fire Blast,Hyper Voice
+Vulpix,fire,,124,72,71,81,96,96,Hypnosis,Nasty Plot,Fire Blast,Energy Ball
+Ninetales,fire,,159,107,106,112,131,131,Nasty Plot,Fire Blast,Double-Edge,Energy Ball
+Jigglypuff,normal,fairy,201,76,51,76,56,51,Thunder Wave,Sing,Body Slam,Play Rough
+Wigglytuff,normal,fairy,226,101,76,116,81,76,Thunder Wave,Double-Edge,Dazzling Gleam,Fire Blast
+Zubat,poison,flying,126,76,66,61,71,86,Confuse Ray,Poison Fang,Brave Bird,Crunch
+Golbat,poison,flying,161,111,101,96,106,121,Sludge Bomb,Brave Bird,Crunch,Leech Life
+Oddish,grass,poison,131,81,86,106,96,61,Sleep Powder,Stun Spore,Giga Drain,Sludge Bomb
+Gloom,grass,poison,146,96,101,116,106,71,Sleep Powder,Stun Spore,Leaf Storm,Sludge Bomb
+Vileplume,grass,poison,161,111,116,141,121,81,Sleep Powder,Giga Drain,Sludge Bomb,Moonblast
+Paras,bug,grass,121,101,86,76,86,56,Spore,Stun Spore,Leech Life,Seed Bomb
+Parasect,bug,grass,146,126,111,91,111,61,Spore,Stun Spore,Leech Life,Seed Bomb
+Venonat,bug,poison,146,86,81,71,86,76,Sleep Powder,Stun Spore,Leech Life,Poison Fang
+Venomoth,bug,poison,156,96,91,121,106,121,Sleep Powder,Bug Buzz,Sludge Wave,Energy Ball
+Diglett,ground,,96,86,56,66,76,126,Swords Dance,Earthquake,Stone Edge,Double-Edge
+Dugtrio,ground,,121,131,81,81,101,151,Swords Dance,Earthquake,Stone Edge,Double-Edge
+Meowth,normal,,126,76,66,71,71,121,Thunder Wave,Double-Edge,Gunk Shot,Thunderbolt
+Persian,normal,,151,101,91,96,96,146,Double-Edge,Gunk Shot,Thunderbolt,Play Rough
+Psyduck,water,,136,83,79,96,81,86,Nasty Plot,Surf,Ice Beam,Double-Edge
+Golduck,water,,166,113,109,126,111,116,Nasty Plot,Hydro Pump,Ice Beam,Double-Edge
+Mankey,fighting,,126,111,66,66,76,101,Cross Chop,Earthquake,Gunk Shot,Stone Edge
+Primeape,fighting,,151,136,91,91,101,126,Cross Chop,Earthquake,Gunk Shot,Stone Edge
+Growlithe,fire,,141,101,76,101,81,91,Will-O-Wisp,Flamethrower,Wild Charge,Double-Edge
+Arcanine,fire,,176,141,111,131,111,126,Will-O-Wisp,Overheat,Extreme Speed,Wild Charge
+Poliwag,water,,126,81,71,71,71,121,Hypnosis,Waterfall,Body Slam,Earth Power
+Poliwhirl,water,,151,96,96,81,81,121,Amnesia,Hypnosis,Liquidation,Double-Edge
+Poliwrath,water,fighting,176,126,126,101,121,101,Liquidation,Drain Punch,Poison Jab,Ice Punch
+Abra,psychic,,111,51,46,136,86,121,Thunder Wave,Psychic,Energy Ball,Dazzling Gleam
+Kadabra,psychic,,126,66,61,151,101,136,Thunder Wave,Psychic,Energy Ball,Dazzling Gleam
+Alakazam,psychic,,141,81,76,166,126,151,Nasty Plot,Psychic,Focus Blast,Shadow Ball
+Machop,fighting,,156,111,81,66,66,66,Submission,Earthquake,Body Slam,Rock Slide
+Machoke,fighting,,166,131,101,81,91,76,Submission,Earthquake,Body Slam,Rock Slide
+Machamp,fighting,,176,161,111,96,116,86,Dynamic Punch,Stone Edge,Double-Edge,Earthquake
+Bellsprout,grass,poison,136,106,66,101,61,71,Swords Dance,Power Whip,Poison Jab,Leech Life
+Weepinbell,grass,poison,151,121,81,116,76,86,Sleep Powder,Stun Spore,Power Whip,Sludge Wave
+Victreebel,grass,poison,166,136,96,131,101,101,Swords Dance,Power Whip,Poison Jab,Body Slam
+Tentacool,water,poison,126,71,66,81,131,101,Surf,Sludge Bomb,Ice Beam,Dazzling Gleam
+Tentacruel,water,poison,166,101,96,111,151,131,Toxic,Surf,Sludge Bomb,Ice Beam
+Geodude,rock,ground,126,111,131,61,61,51,Rock Polish,Stone Edge,Earthquake,Double-Edge
+Graveler,rock,ground,141,126,146,76,76,66,Rock Slide,Earthquake,Body Slam,Iron Head
+Golem,rock,ground,166,151,161,86,96,76,Rock Polish,Stone Edge,Earthquake,Double-Edge
+Ponyta,fire,,136,116,86,96,96,121,Agility,Fire Blast,Body Slam,High Horsepower
+Rapidash,fire,,151,131,101,111,111,136,Swords Dance,Overheat,High Horsepower,Wild Charge
+Slowpoke,water,psychic,176,96,96,71,71,46,Thunder Wave,Liquidation,Zen Headbutt,Earthquake
+Slowbro,water,psychic,181,106,141,131,111,61,Surf,Psychic,Fire Blast,Ice Beam
+Magnemite,electric,steel,111,66,101,126,86,76,Thunder Wave,Thunderbolt,Flash Cannon,Swift
+Magneton,electric,steel,136,91,126,151,101,101,Thunder Wave,Thunderbolt,Flash Cannon,Swift
+Farfetch'd,normal,flying,138,121,86,89,93,91,Swords Dance,Body Slam,Brave Bird,Leaf Blade
+Doduo,normal,flying,121,116,76,66,66,106,Swords Dance,Double-Edge,Brave Bird,Lunge
+Dodrio,normal,flying,146,141,101,91,91,141,Swords Dance,Double-Edge,Brave Bird,Drill Run
+Seel,water,,151,76,86,76,101,76,Surf,Double-Edge,Ice Beam,Drill Run
+Dewgong,water,ice,176,101,111,101,126,101,Surf,Ice Beam,Double-Edge,Play Rough
+Grimer,poison,,166,111,81,71,81,56,Gunk Shot,Drain Punch,Body Slam,Fire Punch
+Muk,poison,,191,136,106,96,131,81,Gunk Shot,Drain Punch,Ice Punch,Body Slam
+Shellder,water,,116,96,131,76,56,71,Liquidation,Take Down,Ice Beam,Mud Shot
+Cloyster,water,ice,136,126,211,116,76,101,Liquidation,Ice Beam,Drill Run,Body Slam
+Gastly,ghost,poison,116,66,61,131,66,111,Nasty Plot,Will-O-Wisp,Shadow Ball,Sludge Bomb
+Haunter,ghost,poison,131,81,76,146,86,126,Hypnosis,Shadow Ball,Sludge Wave,Psychic
+Gengar,ghost,poison,146,96,91,161,106,141,Nasty Plot,Shadow Ball,Sludge Wave,Focus Blast
+Onix,rock,ground,121,76,191,61,76,101,Head Smash,Earthquake,Double-Edge,Iron Head
+Drowzee,psychic,,146,79,76,74,121,73,Thunder Wave,Psychic,Focus Blast,Double-Edge
+Hypno,psychic,,171,104,101,104,146,98,Thunder Wave,Toxic,Psychic,Double-Edge
+Krabby,water,,116,136,121,56,56,81,Swords Dance,Crabhammer,Body Slam,X-Scissor
+Kingler,water,,141,161,146,81,81,106,Agility,Liquidation,X-Scissor,Rock Slide
+Voltorb,electric,,126,61,81,86,86,131,Thunder Wave,Thunderbolt,Swift,Discharge
+Electrode,electric,,146,81,101,111,111,181,Thunder Wave,Thunderbolt,Swift,Discharge
+Exeggcute,grass,psychic,146,71,111,91,76,71,Sleep Powder,Stun Spore,Giga Drain,Psychic
+Exeggutor,grass,psychic,181,126,116,156,106,86,Sleep Powder,Leaf Storm,Psychic,Sludge Bomb
+Cubone,ground,,136,81,126,71,81,66,Earthquake,Body Slam,Blizzard,Fire Blast
+Marowak,ground,,146,111,141,81,111,76,Swords Dance,Earthquake,Double-Edge,Stone Edge
+Hitmonlee,fighting,,136,151,84,66,141,118,Low Sweep,Poison Jab,Stone Edge,Double-Edge
+Hitmonchan,fighting,,136,136,110,66,141,107,Swords Dance,Drain Punch,Ice Punch,Double-Edge
+Lickitung,normal,,176,86,106,91,106,61,Mega Kick,Fire Blast,Ice Beam,Shadow Ball
+Koffing,poison,,126,96,126,91,76,66,Will-O-Wisp,Sludge Bomb,Flamethrower,Thunderbolt
+Weezing,poison,,151,121,151,116,101,91,Will-O-Wisp,Gunk Shot,Fire Blast,Thunderbolt
+Rhyhorn,ground,rock,166,116,126,61,61,56,Rock Polish,Swords Dance,Earthquake,Stone Edge
+Rhydon,ground,rock,191,161,151,76,76,71,Swords Dance,Earthquake,Stone Edge,Megahorn
+Chansey,normal,,336,36,36,66,136,81,Thunder Wave,Hyper Voice,Fire Blast,Ice Beam
+Tangela,grass,,151,86,146,131,71,91,Sleep Powder,Leaf Storm,Sludge Bomb,Confusion
+Kangaskhan,normal,,191,126,111,71,111,121,Double-Edge,Earthquake,Drain Punch,Crunch
+Horsea,water,,116,71,101,101,56,91,Surf,Ice Beam,Dragon Pulse,Flash Cannon
+Seadra,water,,141,96,126,126,76,116,Agility,Hydro Pump,Ice Beam,Dragon Pulse
+Goldeen,water,,131,98,91,66,81,94,Agility,Aqua Tail,Megahorn,Body Slam
+Seaking,water,,166,123,96,96,111,99,Swords Dance,Waterfall,Megahorn,Drill Run
+Staryu,water,,116,76,86,101,86,116,Thunder Wave,Surf,Thunderbolt,Blizzard
+Starmie,water,psychic,146,106,116,131,116,146,Hydro Pump,Psychic,Ice Beam,Thunderbolt
+Mr. Mime,psychic,fairy,126,76,96,131,151,121,Nasty Plot,Psychic,Dazzling Gleam,Focus Blast
+Scyther,bug,flying,156,141,111,86,111,136,Swords Dance,Lunge,Aerial Ace,Take Down
+Jynx,ice,psychic,151,81,66,146,126,126,Lovely Kiss,Nasty Plot,Ice Beam,Psychic
+Electabuzz,electric,,151,114,88,126,116,136,Thunder Wave,Thunderbolt,Psychic,Ice Punch
+Magmar,fire,,151,126,88,131,116,124,Will-O-Wisp,Fire Blast,Psychic,Thunder Punch
+Pinsir,bug,,151,156,131,86,101,116,Swords Dance,X-Scissor,Earthquake,Stone Edge
+Tauros,normal,,161,131,126,71,101,141,Body Slam,Earthquake,Wild Charge,Iron Head
+Magikarp,water,,106,41,86,46,51,111,Tackle,none,none,none
+Gyarados,water,flying,181,156,110,91,131,112,Waterfall,Hurricane,Earthquake,Stone Edge
+Lapras,water,ice,216,116,111,116,126,91,Hydro Pump,Ice Beam,Double-Edge,Earthquake
+Ditto,normal,,134,79,79,79,79,79,none,none,none,none
+Eevee,normal,,141,86,81,76,96,86,Double-Edge,Shadow Ball,Bite,Trailblaze
+Vaporeon,water,,216,96,91,141,126,96,Surf,Ice Beam,Hyper Voice,Shadow Ball
+Jolteon,electric,,151,96,91,141,126,161,Thunderbolt,Shadow Ball,Hyper Voice,Bite
+Flareon,fire,,151,161,91,126,141,96,Will-O-Wisp,Fire Fang,Double-Edge,Trailblaze
+Porygon,normal,,151,91,101,116,106,71,Swift,Ice Beam,Discharge,Psychic
+Omanyte,rock,water,121,71,131,121,86,66,Rock Slide,Surf,Blizzard,Earth Power
+Omastar,rock,water,156,91,156,146,101,86,Stone Edge,Hydro Pump,Earth Power,Ice Beam
+Kabuto,rock,water,116,111,121,86,76,86,Stone Edge,Liquidation,Body Slam,Leech Life
+Kabutops,rock,water,146,146,136,96,101,111,Swords Dance,Stone Edge,Liquidation,Mega Kick
+Aerodactyl,rock,flying,166,136,96,91,106,161,Stone Edge,Wing Attack,Earthquake,Crunch
+Snorlax,normal,,246,141,96,96,141,61,Body Slam,Earthquake,Crunch,Gunk Shot
+Articuno,ice,flying,176,116,131,126,156,116,Ice Beam,Brave Bird,Double-Edge,Water Pulse
+Zapdos,electric,flying,176,121,116,156,121,131,Thunderbolt,Hurricane,Heat Wave,Swift
+Moltres,fire,flying,176,131,121,156,116,121,Will-O-Wisp,Fire Blast,Hurricane,Agility
+Dratini,dragon,,127,95,76,81,81,81,Draco Meteor,Extreme Speed,Iron Head,Aqua Tail
+Dragonair,dragon,,147,115,96,101,101,101,Thunder Wave,Draco Meteor,Body Slam,Thunderbolt
+Dragonite,dragon,flying,177,165,126,131,131,111,Dragon Claw,Aerial Ace,Earthquake,Iron Head
+Mewtwo,psychic,,192,141,121,185,121,161,Nasty Plot,Psychic,Fire Blast,Aura Sphere
+Mew,psychic,,186,131,131,131,131,131,Nasty Plot,Psychic,Fire Blast,Bug Buzz
