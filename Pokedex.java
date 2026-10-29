@@ -1,4 +1,6 @@
 import java.io.FileNotFoundException;
+import java.io.File;
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -75,7 +77,24 @@ public class Pokedex
 	 */
 	public static void readTypeChart() throws FileNotFoundException
 	{
-		// TODO: Implement this method
+		Scanner scanner = new Scanner(new File(TYPE_CHART_FILE));
+		String headerLine = scanner.nextLine();
+		String[] typeNames = headerLine.split(",");
+		for (String typeName : typeNames) {
+			allTypes.put(typeName, new Type(typeName));
+		}
+		// Read each row of the type chart
+		while (scanner.hasNextLine()) {
+			String rowLine = scanner.nextLine();
+			String[] rowValues = rowLine.split(",");
+			Type attackingType = allTypes.get(rowValues[0]);
+			for (int i = 1; i < rowValues.length; i++) {
+				Type defendingType = allTypes.get(typeNames[i]);
+				double effectiveness = Double.parseDouble(rowValues[i]);
+				attackingType.setEffectiveness(defendingType, effectiveness);
+			}
+		}
+		scanner.close();
 	}
 
 	/**
