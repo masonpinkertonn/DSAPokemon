@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * Holds all of the data in the project and is the only class that reads files.
@@ -34,6 +35,10 @@ public class Pokedex
 	// Index 0 is null. Every other index is a Pokemon's Pokedex number, so
 	// index 1 is Bulbasaur, index 6 is Charizard, and index 151 is Mew.
 	private static ArrayList<Pokemon> allPokemon = new ArrayList<>();
+
+	Scanner moves = new Scanner(MOVES_FILE);
+	Scanner typeChart = new Scanner(TYPE_CHART_FILE);
+	Scanner pokemons = new Scanner(POKEMON_FILE);
 
 	/**
 	 * No Pokedex objects are ever created.
@@ -91,6 +96,8 @@ public class Pokedex
 	public static void readMoves() throws FileNotFoundException
 	{
 		// TODO: Implement this method
+
+
 	}
 
 	/**
