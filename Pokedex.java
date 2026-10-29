@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,10 @@ public class Pokedex
 	private static final String MOVES_FILE = "moves.csv";
 	private static final String POKEMON_FILE = "pokemon.csv";
 
+	static File types = new File(TYPE_CHART_FILE);
+
+	static File movesFile = new File(MOVES_FILE);
+
 	// Key is a type's name, such as "fire". Value is the Type with that name.
 	private static HashMap<String, Type> allTypes = new HashMap<>();
 
@@ -36,9 +41,8 @@ public class Pokedex
 	// index 1 is Bulbasaur, index 6 is Charizard, and index 151 is Mew.
 	private static ArrayList<Pokemon> allPokemon = new ArrayList<>();
 
-	Scanner moves = new Scanner(MOVES_FILE);
-	Scanner typeChart = new Scanner(TYPE_CHART_FILE);
-	Scanner pokemons = new Scanner(POKEMON_FILE);
+	//static Scanner moves = new Scanner(File(MOVES_FILE));
+	static Scanner pokemons = new Scanner(POKEMON_FILE);
 
 	/**
 	 * No Pokedex objects are ever created.
@@ -97,7 +101,16 @@ public class Pokedex
 	{
 		// TODO: Implement this method
 
+		Scanner typeChart = new Scanner(types);
 
+		Scanner moves = new Scanner(movesFile);
+
+		//moves.useDelimiter(",");
+
+		while (moves.hasNextLine()) {
+			String line = moves.nextLine();
+			System.out.println(line);
+		}
 	}
 
 	/**
