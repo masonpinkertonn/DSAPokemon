@@ -36,9 +36,9 @@ public class Pokedex
 	// index 1 is Bulbasaur, index 6 is Charizard, and index 151 is Mew.
 	private static ArrayList<Pokemon> allPokemon = new ArrayList<>();
 
-	Scanner moves = new Scanner(MOVES_FILE);
-	Scanner typeChart = new Scanner(TYPE_CHART_FILE);
-	Scanner pokemons = new Scanner(POKEMON_FILE);
+	static Scanner moves = new Scanner(MOVES_FILE);
+	static Scanner typeChart = new Scanner(TYPE_CHART_FILE);
+	static Scanner pokemons = new Scanner(POKEMON_FILE);
 
 	/**
 	 * No Pokedex objects are ever created.
@@ -59,6 +59,16 @@ public class Pokedex
 	public static void setup() throws FileNotFoundException
 	{
 		// TODO: Implement this method
+		moves.nextLine();
+		while(moves.hasNextLine()){
+			String data = moves.nextLine();
+			String[] splitData = data.split(",");
+			String name = splitData[0];
+
+			Move attack = new Move(splitData[0], splitData[1], splitData[2], Integer.parseInt(splitData[3]), Integer.parseInt(splitData[4])
+			
+		}
+
 	}
 
 	/**
