@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Pokedex
 {
-	private static final String TYPE_CHART_FILE = "Data/typeChart.csv";
+	private static final String TYPE_CHART_FILE = "/Users/masonpinkerton/Downloads/DSAPokemon/Data/typeChart.csv";
 	private static final String MOVES_FILE = "Data/moves.csv";
 	private static final String POKEMON_FILE = "Data/pokemon.csv";
 

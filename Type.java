@@ -82,7 +82,7 @@ public class Type
 			if (value == 0) {
 				immune.add(key);
 			}
-			if (value > 1.0) {
+			else if (value > 1.0) {
 				effective.add(key);
 			}
 			else if (value < 1.0) {
