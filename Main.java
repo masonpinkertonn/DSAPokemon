@@ -1,9 +1,20 @@
 public class Main
 {
     public static void main(String[] args) {
+        /*try {
+            Pokedex.readMoves();
+        } catch (Exception e) {
+            System.out.println(".()");
+        }*/
+       try {
+           Pokedex.getType("fire");
+       } catch (Exception e) {
+        System.out.println("Bruh");
+       }
+        
     }
 
-    public void battle(Trainer t1, Trainer t2) {
+    /*public void battle(Trainer t1, Trainer t2) {
         Trainer[] gurrs = compareSpeed(t1, t2);
         Trainer start = gurrs[0];
         Trainer next = gurrs[1];
@@ -44,5 +55,5 @@ public class Main
 
     public boolean proceed() {
         return false;
-    }
+    }*/
 }
