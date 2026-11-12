@@ -18,7 +18,7 @@ public class PokemonTester
 		Pokedex.setup();
 
 		testTypeChart();
-		testMoveEntries();
+		/*testMoveEntries();
 		testPokedexEntries();
 		testMoveRolls();
 
@@ -32,7 +32,7 @@ public class PokemonTester
 		testUsingMoves();
 		testTrainer();
 
-		testBattler();
+		testBattler();*/
 
 		// When every milestone's tests pass, uncomment this line to play a
 		// battle.

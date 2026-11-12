@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -11,12 +10,12 @@ import java.util.Scanner;
  */
 public class Pokedex
 {
-	private static final String TYPE_CHART_FILE = "Data/typeChart.csv";
+	private static final String TYPE_CHART_FILE = "/Users/masonpinkerton/Downloads/DSAPokemon/Data/typeChart.csv";
 	private static final String MOVES_FILE = "Data/moves.csv";
 	private static final String POKEMON_FILE = "Data/pokemon.csv";
 
 	// Key is a type's name, such as "fire".
-	private static HashMap<String, Type> allTypes = new HashMap<>();
+	public static HashMap<String, Type> allTypes = new HashMap<>();
 
 	// Key is a move's name, such as "Flamethrower".
 	private static HashMap<String, MoveEntry> allMoves = new HashMap<>();
@@ -32,7 +31,11 @@ public class Pokedex
 	 */
 	public static void setup()
 	{
-		// TODO: Implement this method
+		// The order matters. Moves need their types, and Pokemon need their
+		// types and moves.
+		readTypeChart();
+		readMoves();
+		readPokemon();
 	}
 
 	/**
@@ -43,7 +46,23 @@ public class Pokedex
 	 */
 	private static ArrayList<String> readFile(String fileName)
 	{
-		return null; // TODO: Implement this method
+		ArrayList<String> lines = new ArrayList<>();
+		try
+		{
+			File file = new File(fileName);
+			Scanner fileScanner = new Scanner(file);
+
+			while (fileScanner.hasNextLine())
+			{
+				lines.add(fileScanner.nextLine());
+			}
+			fileScanner.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			System.out.println("Could not find file: " + fileName);
+		}
+		return lines;
 	}
 
 	/**
@@ -51,7 +70,24 @@ public class Pokedex
 	 */
 	public static void readTypeChart()
 	{
-		// TODO: Implement this method
+		ArrayList<String> lines = readFile(TYPE_CHART_FILE);
+		String[] typeNames = lines.get(0).split(",");
+
+		// Line row + 1 of the file is the row for typeNames[row]. Its columns are
+		// the defending types, in the same order as typeNames.
+		for (int row = 0; row < typeNames.length; row++)
+		{
+			String[] values = lines.get(row + 1).split(",");
+			HashMap<String, Double> effectivenessMap = new HashMap<>();
+
+			for (int col = 0; col < values.length; col++)
+			{
+				double multiplier = Double.parseDouble(values[col]);
+				effectivenessMap.put(typeNames[col], multiplier);
+			}
+
+			allTypes.put(typeNames[row], new Type(typeNames[row], effectivenessMap));
+		}
 	}
 
 	/**
@@ -59,7 +95,24 @@ public class Pokedex
 	 */
 	public static void readMoves()
 	{
-		// TODO: Implement this method
+		ArrayList<String> lines = readFile(MOVES_FILE);
+
+		// Line 0 is the header
+		for (int i = 1; i < lines.size(); i++)
+		{
+			String[] values = lines.get(i).split(",");
+
+			// The columns are in the same order as the MoveEntry constructor
+			Type type = getType(values[1]);
+			Category category = Category.valueOf(values[2].toUpperCase());
+			MoveEntry entry = new MoveEntry(values[0], type, category,
+				Integer.parseInt(values[3]), Integer.parseInt(values[4]),
+				Integer.parseInt(values[5]), Integer.parseInt(values[6]),
+				Integer.parseInt(values[7]), Integer.parseInt(values[8]), values[9],
+				values[10], Integer.parseInt(values[11]), Integer.parseInt(values[12]));
+
+			allMoves.put(entry.getName(), entry);
+		}
 	}
 
 	/**
@@ -68,7 +121,41 @@ public class Pokedex
 	 */
 	public static void readPokemon()
 	{
-		// TODO: Implement this method
+		ArrayList<String> lines = readFile(POKEMON_FILE);
+
+		// Start over, so calling this twice doesn't add every Pokemon again.
+		// Index 0 is null, so each index matches its Pokedex number.
+		allPokemon = new HashMap<>();
+		pokedex = new ArrayList<>();
+		pokedex.add(null);
+
+		// Line 0 is the header, so line i is Pokedex number i
+		for (int i = 1; i < lines.size(); i++)
+		{
+			String[] values = lines.get(i).split(",");
+
+			// A single-type Pokemon has an empty type2 column
+			Type type2 = null;
+			if (!values[2].isEmpty())
+			{
+				type2 = getType(values[2]);
+			}
+
+			// A move listed as "none" isn't in allMoves, so it stays null
+			MoveEntry[] defaultMoves = new MoveEntry[4];
+			for (int m = 0; m < defaultMoves.length; m++)
+			{
+				defaultMoves[m] = getMoveEntry(values[9 + m]);
+			}
+
+			PokedexEntry entry = new PokedexEntry(values[0], getType(values[1]), type2,
+				Integer.parseInt(values[3]), Integer.parseInt(values[4]),
+				Integer.parseInt(values[5]), Integer.parseInt(values[6]),
+				Integer.parseInt(values[7]), Integer.parseInt(values[8]), defaultMoves);
+
+			allPokemon.put(entry.getName(), entry);
+			pokedex.add(entry);
+		}
 	}
 
 	/**
@@ -77,30 +164,13 @@ public class Pokedex
 	 * @param typeName the name of the type, such as "fire"
 	 * @return the Type with that name, or null if there isn't one
 	 */
-	public static Type getType(String typeName) throws FileNotFoundException
+	public static Type getType(String typeName)
 	{
-		File typeCSV = new File(TYPE_CHART_FILE);
-		Scanner typeScanner = new Scanner(typeCSV);
-
-		HashMap<String, Double> effectiveness = new HashMap<>();
-
-		String[] legend = typeScanner.nextLine().split(",");
-
-		ArrayList<String> finalLegend = new ArrayList<>(Arrays.asList(legend));
-
-		int colNum = finalLegend.indexOf(typeName);
-
-		for (int i = 0; i < colNum; i++) {
-			typeScanner.nextLine();
+		if (allTypes.containsKey(typeName))
+		{
+			return allTypes.get(typeName);
 		}
-
-		String[] defense = typeScanner.nextLine().split(",");
-
-		for (int i = 0; i < defense.length; i++) {
-			effectiveness.put(legend[i], Double.parseDouble(defense[i]));
-		}
-
-		return new Type(typeName, effectiveness); // TODO: Implement this method
+		return null;
 	}
 
 	/**
@@ -111,7 +181,12 @@ public class Pokedex
 	 */
 	public static MoveEntry getMoveEntry(String moveName)
 	{
-		return null; // TODO: Implement this method
+		// A MoveEntry never changes, so it's safe for everyone to share it
+		if (allMoves.containsKey(moveName))
+		{
+			return allMoves.get(moveName);
+		}
+		return null;
 	}
 
 	/**
@@ -124,7 +199,11 @@ public class Pokedex
 	 */
 	public static PokedexEntry getPokedexEntryByNumber(int dexNumber)
 	{
-		return null; // TODO: Implement this method
+		if (dexNumber < 1 || dexNumber > getNumPokemon())
+		{
+			throw new IndexOutOfBoundsException("No Pokemon with number " + dexNumber);
+		}
+		return pokedex.get(dexNumber);
 	}
 
 	/**
@@ -135,7 +214,11 @@ public class Pokedex
 	 */
 	public static PokedexEntry getPokedexEntryByName(String pokemonName)
 	{
-		return null; // TODO: Implement this method
+		if (allPokemon.containsKey(pokemonName))
+		{
+			return allPokemon.get(pokemonName);
+		}
+		return null;
 	}
 
 	/**
@@ -148,7 +231,8 @@ public class Pokedex
 	 */
 	public static Pokemon getPokemon(int dexNumber)
 	{
-		return null; // TODO: Implement this method
+		// Every call makes a new Pokemon, so two trainers never share one
+		return new Pokemon(getPokedexEntryByNumber(dexNumber));
 	}
 
 	/**
@@ -158,6 +242,7 @@ public class Pokedex
 	 */
 	public static int getNumPokemon()
 	{
-		return 0; // TODO: Implement this method
+		// Index 0 is null, not a Pokemon
+		return pokedex.size() - 1;
 	}
 }

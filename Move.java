@@ -209,7 +209,15 @@ public class Move
 	 */
 	public boolean rollHit()
 	{
-		return false; // TODO: Implement this method
+		if (getAccuracy() == -1)
+		{
+			return true;
+		}
+
+		// A whole number from 1 to 100. It's at most the accuracy exactly
+		// accuracy percent of the time.
+		int roll = (int) (Math.random() * 100) + 1;
+		return roll <= getAccuracy();
 	}
 
 	/**
@@ -219,7 +227,20 @@ public class Move
 	 */
 	public boolean rollCritical()
 	{
-		return false; // TODO: Implement this method
+		if (!isDamaging())
+		{
+			return false;
+		}
+
+		int oneIn = 24;
+		if (getCritStage() == 1)
+		{
+			oneIn = 8;
+		}
+
+		// A whole number from 0 to oneIn - 1. It's 0 exactly 1 in oneIn times.
+		int roll = (int) (Math.random() * oneIn);
+		return roll == 0;
 	}
 
 	/**
@@ -229,7 +250,13 @@ public class Move
 	 */
 	public boolean rollEffect()
 	{
-		return false; // TODO: Implement this method
+		if (getEffect().equals("none"))
+		{
+			return false;
+		}
+
+		int roll = (int) (Math.random() * 100) + 1;
+		return roll <= getChance();
 	}
 
 	/**
