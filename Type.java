@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -17,12 +18,20 @@ public class Type
 	 * Creates a Type with the given name and row of the type chart.
 	 *
 	 * @param name the name of the type, such as "fire"
-	 * @param effectiveness this type's row of the type chart
-	 * @throws java.lang.IllegalArgumentException if name or effectiveness is null
+	 * @param effectivenessMap this type's row of the type chart
+	 * @throws java.lang.IllegalArgumentException if name or effectivenessMap is null
 	 */
-	public Type(String name, HashMap<String, Double> effectivenessMap) throws IllegalArgumentException
+	public Type(String name, HashMap<String, Double> effectivenessMap)
 	{
-		// TODO: Implement this method
+		if (name == null)
+		{
+			throw new IllegalArgumentException("name can't be null");
+		}
+		if (effectivenessMap == null)
+		{
+			throw new IllegalArgumentException("effectivenessMap can't be null");
+		}
+
 		this.name = name;
 		this.effectivenessMap = effectivenessMap;
 	}
@@ -46,7 +55,13 @@ public class Type
 	 */
 	public double getEffectiveness(Type defendingType)
 	{
-		return 0.0; // TODO: Implement this method
+		if (defendingType == null)
+		{
+			throw new IllegalArgumentException("defendingType can't be null");
+		}
+
+		// This type's row is keyed by the defending type's name
+		return effectivenessMap.get(defendingType.getName());
 	}
 
 	/**
@@ -59,6 +74,60 @@ public class Type
 	@Override
 	public String toString()
 	{
-		return name + " is super effective against " + name + " and is not effective against " + name + " and these jawns are immune to it: " + name; // TODO: Implement this method
+		ArrayList<String> effective = new ArrayList<String>();
+		ArrayList<String> notEffective = new ArrayList<String>();
+		ArrayList<String> immune = new ArrayList<String>();
+
+		effectivenessMap.forEach((key, value) -> {
+			if (value == 0) {
+				immune.add(key);
+			}
+			if (value > 1.0) {
+				effective.add(key);
+			}
+			else if (value < 1.0) {
+				notEffective.add(key);
+			}
+		});
+
+		String output = name + " type";
+
+		output += "\n-----";
+
+		output += "\nSuper effective against: " + (effective.size() > 0 ? effective : "(none)");
+
+		output += "\nNot very effective against: " + (notEffective.size() > 0 ? notEffective : "(none)");
+
+		output += "\nImmune to fire: " + (immune.size() > 0 ? immune : "(none)");
+
+		return output;
+	}
+
+	/**
+	 * Returns the type names in the list, separated by commas, or "(none)" if
+	 * the list is empty.
+	 *
+	 * @param typeList the type names to list
+	 * @return the type names as one String
+	 */
+	private String typeListMaker(ArrayList<String> typeList)
+	{
+		String result = "";
+		if (typeList.size() == 0)
+		{
+			result += "(none)";
+		}
+		else
+		{
+			for (int i = 0; i < typeList.size(); i++)
+			{
+				String currType = typeList.get(i);
+				result += currType;
+				if (i < typeList.size() - 1)
+					result += ", ";
+			}
+		}
+
+		return result;
 	}
 }

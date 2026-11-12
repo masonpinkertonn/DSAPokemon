@@ -7,7 +7,8 @@ public class Main
             System.out.println(".()");
         }*/
        try {
-           Pokedex.getType("fire");
+            System.out.println(Pokedex.allTypes);
+           System.out.println(Pokedex.getType("fire"));
        } catch (Exception e) {
         System.out.println("Bruh");
        }
