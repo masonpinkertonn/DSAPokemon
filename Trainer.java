@@ -2,20 +2,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * A trainer with a team of Pokemon.
- *
- * In the base project, every trainer gets a random team of Pokemon from the
- * Pokedex. One Pokemon on the team is active at a time. The rest are on the
- * bench.
- *
- * Getters and setters are already completed for you.
- *
- * @author [your name here]
+ * A trainer with a team of Pokemon, one of which is active at a time. Getters
+ * and setters are already completed for you.
  */
 public class Trainer
 {
-	// Pokemon that can never be put on a random team. Every trainer shares
-	// this one list.
+	// Pokemon that can never be put on a random team.
 	public static final ArrayList<String> BANNED_POKEMON = new ArrayList<>(
 		Arrays.asList("Caterpie", "Metapod", "Weedle", "Kakuna", "Magikarp", "Ditto"));
 
@@ -26,10 +18,7 @@ public class Trainer
 	private int activeIndex;
 
 	/**
-	 * Creates a trainer with the given name and an empty team. The team is
-	 * filled later by generateTeam().
-	 *
-	 * Must be O(1).
+	 * Creates a trainer with the given name and an empty team.
 	 *
 	 * @param name the trainer's name
 	 * @param teamSize how many Pokemon the trainer's team will have, from 1 to 6
@@ -42,111 +31,27 @@ public class Trainer
 	}
 
 	/**
-	 * Returns true if the Pokemon with the given name is on the banned list.
+	 * Returns this trainer's name.
 	 *
-	 * Must be O(b), where b is the number of banned Pokemon.
-	 *
-	 * Example:
-	 *
-	 *     Trainer.isBanned("Magikarp")     returns true
-	 *     Trainer.isBanned("Gyarados")     returns false
-	 *
-	 * @param pokemonName the name of a Pokemon, exactly as it appears in pokemon.csv
-	 * @return true if that Pokemon is banned
+	 * @return the trainer's name
 	 */
-	public static boolean isBanned(String pokemonName)
+	public String getName()
 	{
-		return false; // TODO: Implement this method
+		return name;
 	}
 
 	/**
-	 * Returns an ArrayList of teamSize random, distinct whole numbers, each from
-	 * 1 to length, including both 1 and length. No number appears more than once.
+	 * Returns this trainer's team.
 	 *
-	 * Must be O(n), where n is length.
-	 *
-	 * Example (for a trainer with a teamSize of 3):
-	 *
-	 *     getRandomIndexes(151)    might return [42, 7, 133]
-	 *     getRandomIndexes(3)      returns 1, 2, and 3 in some order
-	 *
-	 * @param length the largest number that can be in the list
-	 * @return a list of teamSize distinct random numbers from 1 to length
-	 * @throws java.lang.IllegalArgumentException if length is less than teamSize
+	 * @return the list of Pokemon on the team
 	 */
-	public ArrayList<Integer> getRandomIndexes(int length)
+	public ArrayList<Pokemon> getTeam()
 	{
-		return null; // TODO: Implement this method
-	}
-
-	/**
-	 * Fills this trainer's team with teamSize random Pokemon from the Pokedex.
-	 * No Pokemon appears on the team more than once, and no Pokemon on the team
-	 * is on the banned list. The first Pokemon on the team becomes the active
-	 * Pokemon.
-	 *
-	 * Pokedex.setup() must be called before this method.
-	 *
-	 * Must be O(n), where n is the number of Pokemon in the Pokedex.
-	 */
-	public void generateTeam()
-	{
-		// TODO: Implement this method
-	}
-
-	/**
-	 * Returns the number of Pokemon on this trainer's team that haven't fainted.
-	 *
-	 * Must be O(k), where k is teamSize.
-	 *
-	 * @return the number of Pokemon that haven't fainted
-	 */
-	public int getNumRemaining()
-	{
-		return 0; // TODO: Implement this method
-	}
-
-	/**
-	 * Returns true if every Pokemon on this trainer's team has fainted.
-	 *
-	 * Must be O(k), where k is teamSize.
-	 *
-	 * @return true if this trainer has no Pokemon left that can battle
-	 */
-	public boolean isDefeated()
-	{
-		return false; // TODO: Implement this method
-	}
-
-	/**
-	 * Returns true if this trainer has a Pokemon on the bench that hasn't
-	 * fainted, which means the trainer is able to switch.
-	 *
-	 * Must be O(k), where k is teamSize.
-	 *
-	 * @return true if this trainer can switch
-	 */
-	public boolean canSwitch()
-	{
-		return false; // TODO: Implement this method
-	}
-
-	/**
-	 * Returns this trainer's active Pokemon.
-	 *
-	 * Must be O(1).
-	 *
-	 * @return the active Pokemon
-	 */
-	public Pokemon getActivePokemon()
-	{
-		return team.get(activeIndex);
+		return team;
 	}
 
 	/**
 	 * Returns the position of the active Pokemon on the team.
-	 *
-	 * Must be O(1).
 	 *
 	 * @return the active Pokemon's index in team
 	 */
@@ -156,13 +61,20 @@ public class Trainer
 	}
 
 	/**
+	 * Returns this trainer's active Pokemon.
+	 *
+	 * @return the active Pokemon
+	 */
+	public Pokemon getActivePokemon()
+	{
+		return team.get(activeIndex);
+	}
+
+	/**
 	 * Makes the Pokemon at the given position on the team the active Pokemon.
 	 *
-	 * Must be O(1).
-	 *
 	 * @param index the new active Pokemon's index in team
-	 * @throws java.lang.IndexOutOfBoundsException if index is less than 0 or is
-	 *     not less than the size of the team
+	 * @throws java.lang.IndexOutOfBoundsException if index is outside the team
 	 * @throws java.lang.IllegalArgumentException if the Pokemon at index has
 	 *     fainted
 	 */
@@ -180,40 +92,84 @@ public class Trainer
 	}
 
 	/**
-	 * Returns this trainer's team.
+	 * Returns true if the Pokemon with the given name is on the banned list.
 	 *
-	 * Must be O(1).
-	 *
-	 * @return the list of Pokemon on the team
+	 * @param pokemonName the name of a Pokemon
+	 * @return true if that Pokemon is banned
 	 */
-	public ArrayList<Pokemon> getTeam()
+	public static boolean isBanned(String pokemonName)
 	{
-		return team;
+		return false; // TODO: Implement this method
 	}
 
 	/**
-	 * Returns this trainer's name.
+	 * Returns the number of Pokemon on this trainer's team that haven't fainted.
 	 *
-	 * Must be O(1).
-	 *
-	 * @return the trainer's name
+	 * @return the number of Pokemon that haven't fainted
 	 */
-	public String getName()
+	public int getNumRemaining()
 	{
-		return name;
+		return 0; // TODO: Implement this method
+	}
+
+	/**
+	 * Returns true if every Pokemon on this trainer's team has fainted.
+	 *
+	 * @return true if this trainer has no Pokemon left that can battle
+	 */
+	public boolean isDefeated()
+	{
+		return false; // TODO: Implement this method
+	}
+
+	/**
+	 * Returns true if this trainer has a benched Pokemon that hasn't fainted.
+	 *
+	 * @return true if this trainer can switch
+	 */
+	public boolean canSwitch()
+	{
+		return false; // TODO: Implement this method
+	}
+
+	/**
+	 * Returns teamSize random, distinct whole numbers from 1 to length.
+	 *
+	 * @param length the largest number that can be in the list
+	 * @return a list of teamSize distinct random numbers
+	 * @throws java.lang.IllegalArgumentException if length is less than teamSize
+	 */
+	public ArrayList<Integer> getRandomIndexes(int length)
+	{
+		return null; // TODO: Implement this method
+	}
+
+	/**
+	 * Fills this trainer's team with teamSize random, distinct Pokemon that are
+	 * not banned, and makes the first one active.
+	 */
+	public void generateTeam()
+	{
+		// TODO: Implement this method
+	}
+
+	/**
+	 * Switches the active Pokemon out of battle and sends in the Pokemon at the
+	 * given position, printing a message.
+	 *
+	 * @param index the new active Pokemon's index in team
+	 * @throws java.lang.IndexOutOfBoundsException if index is outside the team
+	 * @throws java.lang.IllegalArgumentException if the Pokemon at index has
+	 *     fainted
+	 */
+	public void switchTo(int index)
+	{
+		// TODO: Implement this method
 	}
 
 	/**
 	 * Returns the trainer's name followed by every Pokemon on the team, one per
-	 * line, in team order. Each Pokemon's line is that Pokemon's toString().
-	 *
-	 * Must be O(k), where k is teamSize.
-	 *
-	 * Example (for a trainer named William with two Pokemon):
-	 *
-	 *     William's team
-	 *     Charizard (fire/flying) 164/164 HP
-	 *     Pikachu (electric) 0/121 HP
+	 * line.
 	 *
 	 * @return the trainer's name and team
 	 */

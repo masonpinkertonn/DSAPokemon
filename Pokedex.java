@@ -1,233 +1,250 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 /**
- * Holds all of the data in the project and is the only class that reads files.
- *
- * Pokedex.setup() reads typeChart.csv, moves.csv, and pokemon.csv once, at the
- * start of the program, and creates every Type, Move, and Pokemon from them.
- * After that, the rest of the project gets those objects from the Pokedex
- * through its accessor methods.
- *
- * You never create a Pokedex object. Every method is called on the class name,
- * the same way you call Math.max.
- *
- *     Pokedex.setup();
- *     Pokemon charizard = Pokedex.getPokemon(6);
- *
- * @author [your name here]
+ * Reads the data files and holds every Type, MoveEntry, and PokedexEntry in the
+ * project. All methods are static. No Pokedex objects are ever created.
  */
 public class Pokedex
 {
-	private static final String TYPE_CHART_FILE = "typeChart.csv";
-	private static final String MOVES_FILE = "moves.csv";
-	private static final String POKEMON_FILE = "pokemon.csv";
+	private static final String TYPE_CHART_FILE = "/Users/masonpinkerton/Downloads/DSAPokemon/Data/typeChart.csv";
+	private static final String MOVES_FILE = "Data/moves.csv";
+	private static final String POKEMON_FILE = "Data/pokemon.csv";
 
-	// Key is a type's name, such as "fire". Value is the Type with that name.
-	private static HashMap<String, Type> allTypes = new HashMap<>();
+	// Key is a type's name, such as "fire".
+	public static HashMap<String, Type> allTypes = new HashMap<>();
 
-	// Key is a move's name, exactly as it appears in moves.csv, such as
-	// "Flamethrower". Value is the Move with that name.
-	private static HashMap<String, Move> allMoves = new HashMap<>();
+	// Key is a move's name, such as "Flamethrower".
+	private static HashMap<String, MoveEntry> allMoves = new HashMap<>();
 
-	// Index 0 is null. Every other index is a Pokemon's Pokedex number, so
-	// index 1 is Bulbasaur, index 6 is Charizard, and index 151 is Mew.
-	private static ArrayList<Pokemon> allPokemon = new ArrayList<>();
+	// Key is a Pokemon's name, such as "Charmander".
+	private static HashMap<String, PokedexEntry> allPokemon = new HashMap<>();
+
+	// Index matches Pokedex number. Index 0 is null.
+	private static ArrayList<PokedexEntry> pokedex = new ArrayList<>();
 
 	/**
-	 * No Pokedex objects are ever created.
+	 * Reads every data file and creates every Type, MoveEntry, and PokedexEntry.
 	 */
-	private Pokedex()
+	public static void setup()
 	{
+		// The order matters. Moves need their types, and Pokemon need their
+		// types and moves.
+		readTypeChart();
+		readMoves();
+		readPokemon();
 	}
 
 	/**
-	 * Reads every data file and creates every Type, Move, and Pokemon in the
-	 * project. Must be called once, before anything else uses the Pokedex.
+	 * Returns the contents of a file, one String per line.
 	 *
-	 * Must be O(t^2 + m + p), where t is the number of types, m is the number of
-	 * moves, and p is the number of Pokemon.
-	 *
-	 * @throws java.io.FileNotFoundException if a data file can't be found
+	 * @param fileName the name of the file to read
+	 * @return an ArrayList with one String for each line of the file
 	 */
-	public static void setup() throws FileNotFoundException
+	private static ArrayList<String> readFile(String fileName)
 	{
-		// TODO: Implement this method
+		ArrayList<String> lines = new ArrayList<>();
+		try
+		{
+			File file = new File(fileName);
+			Scanner fileScanner = new Scanner(file);
+
+			while (fileScanner.hasNextLine())
+			{
+				lines.add(fileScanner.nextLine());
+			}
+			fileScanner.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			System.out.println("Could not find file: " + fileName);
+		}
+		return lines;
 	}
 
 	/**
 	 * Reads typeChart.csv and fills allTypes with one Type for each type.
-	 *
-	 * The first line of typeChart.csv lists every type. Each line after that is
-	 * one row of the type chart. The attacking type is the row and the defending
-	 * type is the column, both in the same order as the types on the first line.
-	 * Each Type's HashMap holds its own row (see the Type class).
-	 *
-	 * Must be O(t^2), where t is the number of types.
-	 *
-	 * Example (after this method runs):
-	 *
-	 *     allTypes holds 18 Types
-	 *     allTypes.get("fire").getEffectiveness(allTypes.get("grass"))    is 2.0
-	 *
-	 * @throws java.io.FileNotFoundException if typeChart.csv can't be found
 	 */
-	public static void readTypeChart() throws FileNotFoundException
+	public static void readTypeChart()
 	{
-		Scanner scanner = new Scanner(new File(TYPE_CHART_FILE));
-		String headerLine = scanner.nextLine();
-		String[] typeNames = headerLine.split(",");
-		for (String typeName : typeNames) {
-			allTypes.put(typeName, new Type(typeName));
-		}
-		// Read each row of the type chart
-		while (scanner.hasNextLine()) {
-			String rowLine = scanner.nextLine();
-			String[] rowValues = rowLine.split(",");
-			Type attackingType = allTypes.get(rowValues[0]);
-			for (int i = 1; i < rowValues.length; i++) {
-				Type defendingType = allTypes.get(typeNames[i]);
-				double effectiveness = Double.parseDouble(rowValues[i]);
-				attackingType.setEffectiveness(defendingType, effectiveness);
+		ArrayList<String> lines = readFile(TYPE_CHART_FILE);
+		String[] typeNames = lines.get(0).split(",");
+
+		// Line row + 1 of the file is the row for typeNames[row]. Its columns are
+		// the defending types, in the same order as typeNames.
+		for (int row = 0; row < typeNames.length; row++)
+		{
+			String[] values = lines.get(row + 1).split(",");
+			HashMap<String, Double> effectivenessMap = new HashMap<>();
+
+			for (int col = 0; col < values.length; col++)
+			{
+				double multiplier = Double.parseDouble(values[col]);
+				effectivenessMap.put(typeNames[col], multiplier);
 			}
+
+			allTypes.put(typeNames[row], new Type(typeNames[row], effectivenessMap));
 		}
-		scanner.close();
 	}
 
 	/**
-	 * Reads moves.csv and fills allMoves with one Move for each line after the
-	 * header line. Each Move's type is the Type object from allTypes.
-	 *
-	 * The types must already be read.
-	 *
-	 * Must be O(m), where m is the number of moves.
-	 *
-	 * @throws java.io.FileNotFoundException if moves.csv can't be found
+	 * Reads moves.csv and fills allMoves with one MoveEntry for each move.
 	 */
-	public static void readMoves() throws FileNotFoundException
+	public static void readMoves()
 	{
-		// TODO: Implement this method
+		ArrayList<String> lines = readFile(MOVES_FILE);
+
+		// Line 0 is the header
+		for (int i = 1; i < lines.size(); i++)
+		{
+			String[] values = lines.get(i).split(",");
+
+			// The columns are in the same order as the MoveEntry constructor
+			Type type = getType(values[1]);
+			Category category = Category.valueOf(values[2].toUpperCase());
+			MoveEntry entry = new MoveEntry(values[0], type, category,
+				Integer.parseInt(values[3]), Integer.parseInt(values[4]),
+				Integer.parseInt(values[5]), Integer.parseInt(values[6]),
+				Integer.parseInt(values[7]), Integer.parseInt(values[8]), values[9],
+				values[10], Integer.parseInt(values[11]), Integer.parseInt(values[12]));
+
+			allMoves.put(entry.getName(), entry);
+		}
 	}
 
 	/**
-	 * Reads pokemon.csv and fills allPokemon with one Pokemon for each line after
-	 * the header line, so that each Pokemon's index matches its Pokedex number.
-	 * Index 0 holds null. Each Pokemon's types are Type objects from allTypes,
-	 * and its moves are Move objects from allMoves.
-	 *
-	 * A few Pokemon on the banned list have "none" for some of their moves in
-	 * pokemon.csv. Those moves are null.
-	 *
-	 * The types and moves must already be read.
-	 *
-	 * Must be O(p), where p is the number of Pokemon.
-	 *
-	 * Example (after this method runs):
-	 *
-	 *     allPokemon.size()              is 152
-	 *     allPokemon.get(0)              is null
-	 *     allPokemon.get(6).getName()    is "Charizard"
-	 *
-	 * @throws java.io.FileNotFoundException if pokemon.csv can't be found
+	 * Reads pokemon.csv and fills allPokemon and pokedex with one PokedexEntry for
+	 * each Pokemon.
 	 */
-	public static void readPokemon() throws FileNotFoundException
+	public static void readPokemon()
 	{
-		// TODO: Implement this method
+		ArrayList<String> lines = readFile(POKEMON_FILE);
+
+		// Start over, so calling this twice doesn't add every Pokemon again.
+		// Index 0 is null, so each index matches its Pokedex number.
+		allPokemon = new HashMap<>();
+		pokedex = new ArrayList<>();
+		pokedex.add(null);
+
+		// Line 0 is the header, so line i is Pokedex number i
+		for (int i = 1; i < lines.size(); i++)
+		{
+			String[] values = lines.get(i).split(",");
+
+			// A single-type Pokemon has an empty type2 column
+			Type type2 = null;
+			if (!values[2].isEmpty())
+			{
+				type2 = getType(values[2]);
+			}
+
+			// A move listed as "none" isn't in allMoves, so it stays null
+			MoveEntry[] defaultMoves = new MoveEntry[4];
+			for (int m = 0; m < defaultMoves.length; m++)
+			{
+				defaultMoves[m] = getMoveEntry(values[9 + m]);
+			}
+
+			PokedexEntry entry = new PokedexEntry(values[0], getType(values[1]), type2,
+				Integer.parseInt(values[3]), Integer.parseInt(values[4]),
+				Integer.parseInt(values[5]), Integer.parseInt(values[6]),
+				Integer.parseInt(values[7]), Integer.parseInt(values[8]), defaultMoves);
+
+			allPokemon.put(entry.getName(), entry);
+			pokedex.add(entry);
+		}
 	}
 
 	/**
-	 * Returns the Type with the given name, or null if there is no type with
-	 * that name.
-	 *
-	 * Every caller gets the same Type object. That's safe because a Type never
-	 * changes after it's created.
-	 *
-	 * Must be O(1).
-	 *
-	 * Example:
-	 *
-	 *     Pokedex.getType("fire")     returns the fire Type
-	 *     Pokedex.getType("Fire")     returns null
-	 *     Pokedex.getType("sound")    returns null
+	 * Returns the Type with the given name.
 	 *
 	 * @param typeName the name of the type, such as "fire"
 	 * @return the Type with that name, or null if there isn't one
 	 */
 	public static Type getType(String typeName)
 	{
-		return null; // TODO: Implement this method
+		if (allTypes.containsKey(typeName))
+		{
+			return allTypes.get(typeName);
+		}
+		return null;
 	}
 
 	/**
-	 * Returns a new copy of the move with the given name, or null if there is no
-	 * move with that name.
+	 * Returns the MoveEntry with the given name.
 	 *
-	 * Every call returns a different Move object. Here's why that matters. A
-	 * Move keeps track of its own PP, so it knows how many times it has been
-	 * used and whether it has any uses left. If two Pokemon shared the same
-	 * Flamethrower object, then every time one of them used Flamethrower, the
-	 * other one's Flamethrower would lose PP too, even if that Pokemon had
-	 * never used it.
-	 *
-	 * Must be O(1).
-	 *
-	 * Example:
-	 *
-	 *     Pokedex.getMove("Flamethrower")    returns a new Flamethrower with 15 PP
-	 *     Pokedex.getMove("flamethrower")    returns null
-	 *     Pokedex.getMove("none")            returns null
-	 *
-	 * @param moveName the name of the move, exactly as it appears in moves.csv
-	 * @return a new copy of that move, or null if there isn't one
+	 * @param moveName the name of the move, such as "Flamethrower"
+	 * @return the MoveEntry with that name, or null if there isn't one
 	 */
-	public static Move getMove(String moveName)
+	public static MoveEntry getMoveEntry(String moveName)
 	{
-		return null; // TODO: Implement this method
+		// A MoveEntry never changes, so it's safe for everyone to share it
+		if (allMoves.containsKey(moveName))
+		{
+			return allMoves.get(moveName);
+		}
+		return null;
 	}
 
 	/**
-	 * Returns a new copy of the Pokemon with the given Pokedex number, with full
-	 * HP, no status, and full PP on every move.
-	 *
-	 * Every call returns a different Pokemon object, for the same reason as
-	 * getMove. If both trainers got the same Pikachu object, then whenever one
-	 * trainer's Pikachu lost HP, the other trainer's Pikachu would lose HP too.
-	 *
-	 * Must be O(1).
-	 *
-	 * Example:
-	 *
-	 *     Pokedex.getPokemon(1)      returns a new Bulbasaur
-	 *     Pokedex.getPokemon(6)      returns a new Charizard
-	 *     Pokedex.getPokemon(151)    returns a new Mew
+	 * Returns the PokedexEntry with the given Pokedex number.
 	 *
 	 * @param dexNumber the Pokemon's Pokedex number, from 1 to 151
-	 * @return a new copy of that Pokemon
+	 * @return the PokedexEntry with that number
+	 * @throws java.lang.IndexOutOfBoundsException if dexNumber is less than 1 or
+	 *     more than the number of Pokemon in the Pokedex
+	 */
+	public static PokedexEntry getPokedexEntryByNumber(int dexNumber)
+	{
+		if (dexNumber < 1 || dexNumber > getNumPokemon())
+		{
+			throw new IndexOutOfBoundsException("No Pokemon with number " + dexNumber);
+		}
+		return pokedex.get(dexNumber);
+	}
+
+	/**
+	 * Returns the PokedexEntry with the given name.
+	 *
+	 * @param pokemonName the Pokemon's name, such as "Charmander"
+	 * @return the PokedexEntry with that name, or null if there isn't one
+	 */
+	public static PokedexEntry getPokedexEntryByName(String pokemonName)
+	{
+		if (allPokemon.containsKey(pokemonName))
+		{
+			return allPokemon.get(pokemonName);
+		}
+		return null;
+	}
+
+	/**
+	 * Returns a new Pokemon object with the given Pokedex number.
+	 *
+	 * @param dexNumber the Pokemon's Pokedex number, from 1 to 151
+	 * @return a newly created Pokemon object
 	 * @throws java.lang.IndexOutOfBoundsException if dexNumber is less than 1 or
 	 *     more than the number of Pokemon in the Pokedex
 	 */
 	public static Pokemon getPokemon(int dexNumber)
 	{
-		return null; // TODO: Implement this method
+		// Every call makes a new Pokemon, so two trainers never share one
+		return new Pokemon(getPokedexEntryByNumber(dexNumber));
 	}
 
 	/**
-	 * Returns how many Pokemon are in the Pokedex. Index 0 of allPokemon is not
-	 * a Pokemon, so it isn't counted.
-	 *
-	 * Must be O(1).
-	 *
-	 * Example:
-	 *
-	 *     Pokedex.getNumPokemon()    returns 151
+	 * Returns the number of Pokemon in the Pokedex.
 	 *
 	 * @return the number of Pokemon in the Pokedex
 	 */
 	public static int getNumPokemon()
 	{
-		return 0; // TODO: Implement this method
+		// Index 0 is null, not a Pokemon
+		return pokedex.size() - 1;
 	}
 }
