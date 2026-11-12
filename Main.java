@@ -1,11 +1,16 @@
 public class Main
 {
     public static void main(String[] args) {
-        try {
+        /*try {
             Pokedex.readMoves();
         } catch (Exception e) {
             System.out.println(".()");
-        }
+        }*/
+       try {
+           Pokedex.getType("fire");
+       } catch (Exception e) {
+        System.out.println("Bruh");
+       }
         
     }
 

@@ -1,334 +1,247 @@
 /**
- * A move that a Pokemon can use in battle.
- *
- * Every Move holds the data from one row of moves.csv, plus how much PP it has
- * left. The meaning of each column is explained in the Battle Rules document.
- *
- * Move objects are created by the Pokedex class. A Move only knows its own
- * data. The PokemonBattler class decides what happens when a move is used.
- *
- * Getters are already completed for you.
- *
- * @author [your name here]
+ * A move that a Pokemon knows in battle. Each Move keeps track of its own PP,
+ * and gets the rest of its data from a MoveEntry that every copy of the move
+ * shares. Everything except rollHit, rollCritical, and rollEffect is already
+ * completed for you.
  */
 public class Move
 {
 	// Do not add new instance variables.
-	private String name;
-	private Type type;
-	private String category;
-	private int power;
-
-	private int accuracy;
-	private int maxPp;
-	private int currentPp;
-	private int priority;
-
-	private int critStage;
-	private int userHpChange;
-
-	// The move's effect. These four match the effect, target, stages,
-	// and chance columns of moves.csv.
-	private String effect;
-	private String effectTarget;
-	private int stages;
-	private int chance;
+	private MoveEntry entry;
+	private int currentPP;
 
 	/**
-	 * Creates a Move from the values in one row of moves.csv. The new move
-	 * starts with full PP.
+	 * Creates a Move with full PP from the given entry.
 	 *
-	 * Must be O(1).
-	 *
-	 * Example usage:
-	 *
-	 *     Move flamethrower = new Move("Flamethrower", fire, "special", 90, 100,
-	 *         15, 0, 0, 0, "burn", "opponent", 0, 10);
-	 *
-	 *     flamethrower.getPower()        returns 90
-	 *     flamethrower.getCurrentPp()    returns 15
-	 *     flamethrower.getEffect()       returns "burn"
-	 *
-	 * @param name the move's name
-	 * @param type the move's type
-	 * @param category "physical", "special", or "status"
-	 * @param power the move's power, 0 for status moves
-	 * @param accuracy the percent chance the move hits, or -1 if it always hits
-	 * @param pp the PP the move starts each battle with
-	 * @param priority the move's priority (only used in an add-on)
-	 * @param critStage 1 for moves with a higher critical hit chance, otherwise 0
-	 * @param userHpChange the percent of the damage dealt the user gains
-	 *     (positive) or loses (negative)
-	 * @param effect the move's effect, such as "burn", "attack", or "none"
-	 * @param effectTarget "self", "opponent", or "none"
-	 * @param stages how many stages the effect changes a stat by
-	 * @param chance the percent chance the effect happens
-	 * @throws java.lang.IllegalArgumentException if name, type, category, effect,
-	 *     or effectTarget is null
+	 * @param entry the move's entry
+	 * @throws java.lang.IllegalArgumentException if entry is null
 	 */
-	public Move(String name, Type type, String category, int power, int accuracy,
-		int pp, int priority, int critStage, int userHpChange, String effect,
-		String effectTarget, int stages, int chance)
+	public Move(MoveEntry entry)
 	{
-		// TODO: Implement this method
+		if (entry == null)
+		{
+			throw new IllegalArgumentException("entry can't be null");
+		}
+
+		this.entry = entry;
+		currentPP = entry.getMaxPP();
 	}
 
 	/**
-	 * Creates a new Move with the same data as the given move. The new move
-	 * starts with full PP. Using the new move never changes the PP of the
-	 * original move, and using the original move never changes the PP of the
-	 * new move.
+	 * Returns the move's name.
 	 *
-	 * Must be O(1).
-	 *
-	 * Example:
-	 *
-	 *     Move copy = new Move(flamethrower);
-	 *     copy.usePp();
-	 *
-	 *     copy.getCurrentPp()            returns 14
-	 *     flamethrower.getCurrentPp()    still returns 15
-	 *
-	 * @param other the move to copy
-	 * @throws java.lang.IllegalArgumentException if other is null
-	 */
-	public Move(Move other)
-	{
-		// TODO: Implement this method
-	}
-
-	/**
-	 * Returns true if this move deals damage. Physical and special moves deal
-	 * damage. Status moves don't.
-	 *
-	 * Must be O(1).
-	 *
-	 * @return true if this move's category is physical or special
-	 */
-	public boolean isDamaging()
-	{
-		return false; // TODO: Implement this method
-	}
-
-	/**
-	 * Returns true if this move has at least 1 PP left.
-	 *
-	 * Must be O(1).
-	 *
-	 * @return true if this move's current PP is more than 0
-	 */
-	public boolean hasPp()
-	{
-		return false; // TODO: Implement this method
-	}
-
-	/**
-	 * Uses 1 of this move's PP.
-	 *
-	 * Must be O(1).
-	 *
-	 * Example:
-	 *
-	 *     A move with 10 PP that has been used 3 times has 7 PP remaining.
-	 *
-	 * @throws java.lang.IllegalStateException if this move has 0 PP
-	 */
-	public void usePp()
-	{
-		// TODO: Implement this method
-	}
-
-	/**
-	 * Returns this move's name.
-	 *
-	 * Must be O(1).
-	 *
-	 * @return the move's name, such as "Flamethrower"
+	 * @return the move's name
 	 */
 	public String getName()
 	{
-		return name;
+		return entry.getName();
 	}
 
 	/**
-	 * Returns this move's type.
-	 *
-	 * Must be O(1).
+	 * Returns the move's type.
 	 *
 	 * @return the move's type
 	 */
 	public Type getType()
 	{
-		return type;
+		return entry.getType();
 	}
 
 	/**
-	 * Returns this move's category.
+	 * Returns the move's category.
 	 *
-	 * Must be O(1).
-	 *
-	 * @return "physical", "special", or "status"
+	 * @return PHYSICAL, SPECIAL, or STATUS
 	 */
-	public String getCategory()
+	public Category getCategory()
 	{
-		return category;
+		return entry.getCategory();
 	}
 
 	/**
-	 * Returns this move's power. Status moves have a power of 0.
+	 * Returns the move's power.
 	 *
-	 * Must be O(1).
-	 *
-	 * @return the move's power
+	 * @return the move's power, 0 for status moves
 	 */
 	public int getPower()
 	{
-		return power;
+		return entry.getPower();
 	}
 
 	/**
-	 * Returns this move's accuracy, the percent chance it hits. An accuracy
-	 * of -1 means the move always hits.
+	 * Returns the move's accuracy.
 	 *
-	 * Must be O(1).
-	 *
-	 * @return the move's accuracy
+	 * @return the percent chance the move hits, or -1 if it always hits
 	 */
 	public int getAccuracy()
 	{
-		return accuracy;
+		return entry.getAccuracy();
 	}
 
 	/**
-	 * Returns the PP this move starts each battle with.
-	 *
-	 * Must be O(1).
+	 * Returns the PP the move starts each battle with.
 	 *
 	 * @return the move's maximum PP
 	 */
-	public int getMaxPp()
+	public int getMaxPP()
 	{
-		return maxPp;
+		return entry.getMaxPP();
 	}
 
 	/**
 	 * Returns the PP this move has left.
 	 *
-	 * Must be O(1).
-	 *
 	 * @return the move's remaining PP
 	 */
-	public int getCurrentPp()
+	public int getCurrentPP()
 	{
-		return currentPp;
+		return currentPP;
 	}
 
 	/**
-	 * Returns this move's priority. Priority is only used in an add-on.
-	 *
-	 * Must be O(1).
+	 * Returns the move's priority.
 	 *
 	 * @return the move's priority
 	 */
 	public int getPriority()
 	{
-		return priority;
+		return entry.getPriority();
 	}
 
 	/**
-	 * Returns this move's critStage, 1 for moves with a higher critical hit
-	 * chance and 0 for every other move.
+	 * Returns the move's critStage.
 	 *
-	 * Must be O(1).
-	 *
-	 * @return the move's critStage
+	 * @return 1 for a higher critical hit chance, otherwise 0
 	 */
 	public int getCritStage()
 	{
-		return critStage;
+		return entry.getCritStage();
 	}
 
 	/**
-	 * Returns this move's userHpChange, the percent of the damage dealt that the
-	 * user gains (positive, draining) or loses (negative, recoil). Most moves
-	 * have a userHpChange of 0.
+	 * Returns the move's userHPChange.
 	 *
-	 * Must be O(1).
-	 *
-	 * @return the move's userHpChange
+	 * @return the percent of damage dealt the user gains (positive) or loses
+	 *     (negative)
 	 */
-	public int getUserHpChange()
+	public int getUserHPChange()
 	{
-		return userHpChange;
+		return entry.getUserHPChange();
 	}
 
 	/**
-	 * Returns this move's effect. It's a status ("burn", "paralyze", "freeze",
-	 * "sleep", "poison", or "confuse"), a stat ("attack", "defense", "spAttack",
-	 * "spDefense", or "speed"), or "none".
+	 * Returns the move's effect.
 	 *
-	 * Must be O(1).
-	 *
-	 * @return the move's effect
+	 * @return a status, a stat name, or "none"
 	 */
 	public String getEffect()
 	{
-		return effect;
+		return entry.getEffect();
 	}
 
 	/**
-	 * Returns who this move's effect happens to.
-	 *
-	 * Must be O(1).
+	 * Returns who the move's effect happens to.
 	 *
 	 * @return "self", "opponent", or "none"
 	 */
 	public String getEffectTarget()
 	{
-		return effectTarget;
+		return entry.getEffectTarget();
 	}
 
 	/**
-	 * Returns how many stages this move's effect changes a stat by. Positive
-	 * numbers raise the stat and negative numbers lower it. Always 0 for moves
-	 * whose effect isn't a stat.
+	 * Returns how many stages the move's effect changes a stat by.
 	 *
-	 * Must be O(1).
-	 *
-	 * @return the number of stages
+	 * @return the number of stages, positive to raise and negative to lower
 	 */
 	public int getStages()
 	{
-		return stages;
+		return entry.getStages();
 	}
 
 	/**
-	 * Returns the percent chance that this move's effect happens.
-	 *
-	 * Must be O(1).
+	 * Returns the percent chance that the move's effect happens.
 	 *
 	 * @return the move's effect chance
 	 */
 	public int getChance()
 	{
-		return chance;
+		return entry.getChance();
 	}
 
 	/**
-	 * Returns the move's name, type, category, and PP.
+	 * Returns true if this move is physical or special.
 	 *
-	 * Must be O(1).
+	 * @return true if this move deals damage
+	 */
+	public boolean isDamaging()
+	{
+		return getCategory() != Category.STATUS;
+	}
+
+	/**
+	 * Returns true if this move has at least 1 PP left.
 	 *
-	 * Example:
+	 * @return true if this move has PP left
+	 */
+	public boolean hasPP()
+	{
+		return currentPP > 0;
+	}
+
+	/**
+	 * Uses 1 of this move's PP.
 	 *
-	 *     Flamethrower (fire, special) 15/15 PP
-	 *     Swords Dance (normal, status) 19/20 PP
+	 * @throws java.lang.IllegalStateException if this move has 0 PP
+	 */
+	public void usePP()
+	{
+		if (currentPP == 0)
+		{
+			throw new IllegalStateException(getName() + " has no PP left");
+		}
+		currentPP--;
+	}
+
+	/**
+	 * Decides whether this move hits, based on its accuracy.
+	 *
+	 * @return true if this move hits
+	 */
+	public boolean rollHit()
+	{
+		return false; // TODO: Implement this method
+	}
+
+	/**
+	 * Decides whether this move lands a critical hit, based on its critStage.
+	 *
+	 * @return true if this move lands a critical hit
+	 */
+	public boolean rollCritical()
+	{
+		return false; // TODO: Implement this method
+	}
+
+	/**
+	 * Decides whether this move's effect happens, based on its chance.
+	 *
+	 * @return true if this move's effect happens
+	 */
+	public boolean rollEffect()
+	{
+		return false; // TODO: Implement this method
+	}
+
+	/**
+	 * Returns this move's name, type, category, and PP.
 	 *
 	 * @return a one-line description of this move
 	 */
 	@Override
 	public String toString()
 	{
-		return null; // TODO: Implement this method
+		return getName() + " (" + getType().getName() + ", "
+			+ getCategory().toString().toLowerCase() + ") " + currentPP + "/" + getMaxPP()
+			+ " PP";
 	}
 }
