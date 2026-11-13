@@ -183,6 +183,19 @@ public class PokemonTester
 	private static void testTrainer()
 	{
 		// Write your Milestone 12 tests here.
+
+		Trainer Cuh = new Trainer("Cuh", 6);
+
+		Cuh.getTeam().add(Pokedex.getPokemon(12));
+		Cuh.getTeam().add(Pokedex.getPokemon(23));
+		Cuh.getTeam().add(Pokedex.getPokemon(17));
+		Cuh.getTeam().add(Pokedex.getPokemon(120));
+		Cuh.getTeam().add(Pokedex.getPokemon(116)));
+		Cuh.getTeam().add(Pokedex.getPokemon(1));
+
+		Boolean magiBanned = Trainer.isBanned("Magikarp");
+		Boolean pikaBanned = Traner.isBanned("Pikachu");
+
 	}
 
 	/**
