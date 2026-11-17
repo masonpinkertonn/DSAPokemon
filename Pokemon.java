@@ -266,6 +266,24 @@ public class Pokemon
 	 */
 	public boolean inflictStatus(Status newStatus)
 	{
+		if (newStatus == null || newStatus == Status.NONE)
+		{
+			throw new IllegalArgumentException("newStatus can't be null or NONE");
+		}
+		if (status == newStatus)
+		{
+			return false;
+		}
+		if (newStatus == Status.SLEEP)
+			{
+				sleepTurns = (int) (Math.random() * 3 )+ 1;
+				return true;
+			}
+		if (newStatus == Status.FREEZE)
+		{
+			
+			return true;
+		}
 		return false; // TODO: Implement this method
 	}
 
