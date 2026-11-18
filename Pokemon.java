@@ -446,10 +446,10 @@ public class Pokemon
 
 		result += entry.getName() + " (";
 
-		result += entry.getType1();
+		result += entry.getType1().getName();
 
 		if (entry.getType2() != null) {
-			result += "/" + entry.getType2();
+			result += "/" + entry.getType2().getName();
 		}
 
 		result += ") ";
