@@ -18,16 +18,21 @@ public class PokemonTester
 		Pokedex.setup();
 
 		//testTypeChart();
+		//testTypeChart();
 		/*testMoveEntries();
 		testPokedexEntries();
-		testMoveRolls();
+		testMoveRolls();*/
 
-		testStats();*/
+		//testStats();
+		//testNewPokemon();
+		//testPokemonBasics();
+		
+		testStats();
 		testNewPokemon();
 		/*testPokemonBasics();
 		testStatus();
 
-		testDamage();
+		/*testDamage();
 		testHPChanges();
 		testUsingMoves();
 		testTrainer();
@@ -122,6 +127,16 @@ public class PokemonTester
 	 */
 	private static void testStats()
 	{
+				Stat attack = new Stat(115);
+		System.out.println(attack.getValue() + " (115)");
+
+		attack.changeStage(2);
+		System.out.println(attack.getValue() + " (230)");
+
+		attack.reset();
+		attack.changeStage(-1);
+		System.out.println(attack.getValue() + " (76)");
+
 		// Paste the Milestone 5 tests from the Build Guide here, then write
 		// tests for the scenarios under "Also test these."
 	}
@@ -168,6 +183,20 @@ public class PokemonTester
 	 */
 	private static void testStatus()
 	{
+				Pokemon venusaur = Pokedex.getPokemon(3);
+		System.out.println(venusaur.inflictStatus(Status.BURN) + " (true)");
+		System.out.println(venusaur + " (Venusaur (grass/poison) 166/166 HP [burn])");
+		System.out.println(venusaur.inflictStatus(Status.POISON) + " (false)");
+
+		venusaur.cureStatus();
+		System.out.println(venusaur.getStatus() + " (NONE)");
+
+		Pokemon charizard = Pokedex.getPokemon(6);
+		System.out.println(charizard.inflictStatus(Status.BURN) + " (false)");
+
+		Pokemon snorlax = Pokedex.getPokemon(143);
+		snorlax.inflictStatus(Status.SLEEP);
+		System.out.println(snorlax.getSleepTurns() + " (1, 2, or 3)");
 		// Paste the Milestone 8 tests from the Build Guide here, then write
 		// tests for the scenarios under "Also test these."
 	}
@@ -209,11 +238,11 @@ public class PokemonTester
 		Cuh.getTeam().add(Pokedex.getPokemon(23));
 		Cuh.getTeam().add(Pokedex.getPokemon(17));
 		Cuh.getTeam().add(Pokedex.getPokemon(120));
-		Cuh.getTeam().add(Pokedex.getPokemon(116)));
+		Cuh.getTeam().add(Pokedex.getPokemon(116));
 		Cuh.getTeam().add(Pokedex.getPokemon(1));
 
 		Boolean magiBanned = Trainer.isBanned("Magikarp");
-		Boolean pikaBanned = Traner.isBanned("Pikachu");
+		Boolean pikaBanned = Trainer.isBanned("Pikachu");
 
 	}
 
