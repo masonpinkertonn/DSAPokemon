@@ -22,12 +22,13 @@ public class PokemonTester
 		testPokedexEntries();
 		testMoveRolls();*/
 
-		testStats();
-		/*testNewPokemon();
-		testPokemonBasics();
+		//testStats();
+		//testNewPokemon();
+		//testPokemonBasics();
+		
 		testStatus();
 
-		testDamage();
+		/*testDamage();
 		testHPChanges();
 		testUsingMoves();
 		testTrainer();
@@ -159,6 +160,20 @@ public class PokemonTester
 	 */
 	private static void testStatus()
 	{
+				Pokemon venusaur = Pokedex.getPokemon(3);
+		System.out.println(venusaur.inflictStatus(Status.BURN) + " (true)");
+		System.out.println(venusaur + " (Venusaur (grass/poison) 166/166 HP [burn])");
+		System.out.println(venusaur.inflictStatus(Status.POISON) + " (false)");
+
+		venusaur.cureStatus();
+		System.out.println(venusaur.getStatus() + " (NONE)");
+
+		Pokemon charizard = Pokedex.getPokemon(6);
+		System.out.println(charizard.inflictStatus(Status.BURN) + " (false)");
+
+		Pokemon snorlax = Pokedex.getPokemon(143);
+		snorlax.inflictStatus(Status.SLEEP);
+		System.out.println(snorlax.getSleepTurns() + " (1, 2, or 3)");
 		// Paste the Milestone 8 tests from the Build Guide here, then write
 		// tests for the scenarios under "Also test these."
 	}

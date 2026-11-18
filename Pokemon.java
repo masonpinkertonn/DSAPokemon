@@ -276,14 +276,25 @@ public class Pokemon
 		}
 		if (newStatus == Status.SLEEP)
 			{
+				status = newStatus;
 				sleepTurns = (int) (Math.random() * 3 )+ 1;
 				return true;
 			}
 		if (newStatus == Status.FREEZE)
 		{
-			
+			status = newStatus;
 			return true;
 		}
+		if (newStatus == Status.POISON)
+		{
+			status = newStatus;
+			return true;
+		}
+		if (newStatus == Status.BURN)
+			{
+				status = newStatus;
+				return true;
+			}
 		return false; // TODO: Implement this method
 	}
 
@@ -292,7 +303,8 @@ public class Pokemon
 	 */
 	public void cureStatus()
 	{
-		// TODO: Implement this method
+		status = Status.NONE;
+		sleepTurns = 0;
 	}
 
 	/**
@@ -303,7 +315,13 @@ public class Pokemon
 	 */
 	public boolean confuse()
 	{
-		return false; // TODO: Implement this method
+		if(!confused)
+		{
+			confused = true;
+			confusionTurns = (int) (Math.random() * 4) + 1;
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -311,7 +329,8 @@ public class Pokemon
 	 */
 	public void cureConfusion()
 	{
-		// TODO: Implement this method
+		confused = false;
+		confusionTurns = 0;
 	}
 
 	/**
@@ -319,7 +338,11 @@ public class Pokemon
 	 */
 	public void switchOut()
 	{
-		// TODO: Implement this method
+		for (Stat stat : stats.values())
+		{
+			stat.reset();
+		}
+		cureConfusion();
 	}
 
 	/**
