@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.File;
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -231,6 +233,9 @@ public class Pokedex
 	 */
 	public static Pokemon getPokemon(int dexNumber)
 	{
+		if (dexNumber < 1 || dexNumber > getNumPokemon()) {
+			throw new IndexOutOfBoundsException("Bad Index");
+		}
 		// Every call makes a new Pokemon, so two trainers never share one
 		return new Pokemon(getPokedexEntryByNumber(dexNumber));
 	}

@@ -1,5 +1,5 @@
 /**
- * The data from one row of pokemon.csv. A PokedexEntry never changes after it's
+ * The data from one row of pokemon.cv. A PokedexEntry never changes after it's
  * created, and every Pokemon of that kind is created from it. This file is
  * already completed for you.
  */

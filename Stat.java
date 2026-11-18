@@ -2,8 +2,7 @@
  * One of a Pokemon's five stats, along with its current stage. Everything except
  * getValue is already completed for you.
  */
-public class Stat
-{
+public class Stat{
 	// Do not add new instance variables.
 	private int base;
 	private int stage;
@@ -77,6 +76,15 @@ public class Stat
 	 */
 	public int getValue()
 	{
-		return 0; // TODO: Implement this method
+		if(stage == 0)
+			return base;
+		else if (stage >= 0)
+		{
+			return base * (2 + stage) / 2;
+		}
+		else
+		{
+			return base * 2 / (2 - stage);
+		}
 	}
 }

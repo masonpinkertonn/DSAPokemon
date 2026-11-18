@@ -18,18 +18,20 @@ public class PokemonTester
 		Pokedex.setup();
 
 		testTypeChart();
-
-		testTrainer();
 		/*testMoveEntries();
 		testPokedexEntries();
-		testMoveRolls();
+		testMoveRolls();*/
 
+		//testStats();
+		//testNewPokemon();
+		//testPokemonBasics();
+		
 		testStats();
 		testNewPokemon();
-		testPokemonBasics();
+		/*testPokemonBasics();
 		testStatus();
 
-		testDamage();
+		/*testDamage();
 		testHPChanges();
 		testUsingMoves();
 		testTrainer();
@@ -124,6 +126,16 @@ public class PokemonTester
 	 */
 	private static void testStats()
 	{
+				Stat attack = new Stat(115);
+		System.out.println(attack.getValue() + " (115)");
+
+		attack.changeStage(2);
+		System.out.println(attack.getValue() + " (230)");
+
+		attack.reset();
+		attack.changeStage(-1);
+		System.out.println(attack.getValue() + " (76)");
+
 		// Paste the Milestone 5 tests from the Build Guide here, then write
 		// tests for the scenarios under "Also test these."
 	}
@@ -135,6 +147,25 @@ public class PokemonTester
 	{
 		// Paste the Milestone 6 tests from the Build Guide here, then write
 		// tests for the scenarios under "Also test these."
+
+		Pokemon charizard = Pokedex.getPokemon(6);
+		System.out.println(charizard + " (Charizard (fire/flying) 164/164 HP)");
+		System.out.println(charizard.getMove(1) + " (Flamethrower (fire, special) 15/15 PP)");
+		System.out.println(charizard.getStat("spAttack").getValue() + " (140)");
+
+		System.out.println(Pokedex.getPokemon(25) + " (Pikachu (electric) 121/121 HP)");
+		System.out.println(Pokedex.getPokemon(151) + " (Mew (psychic) 186/186 HP)");
+
+		// Two Pokemon of the same kind
+		Pokemon pikachu1 = Pokedex.getPokemon(25);
+		Pokemon pikachu2 = Pokedex.getPokemon(25);
+		pikachu1.getMove(0).usePP();
+		pikachu1.getStat("attack").changeStage(2);
+
+		System.out.println((pikachu1 == pikachu2) + " (false)");
+		System.out.println(pikachu2.getMove(0).getCurrentPP() + " (15)");
+		System.out.println(pikachu2.getStat("attack").getStage() + " (0)");
+
 	}
 
 	/**
@@ -151,6 +182,20 @@ public class PokemonTester
 	 */
 	private static void testStatus()
 	{
+				Pokemon venusaur = Pokedex.getPokemon(3);
+		System.out.println(venusaur.inflictStatus(Status.BURN) + " (true)");
+		System.out.println(venusaur + " (Venusaur (grass/poison) 166/166 HP [burn])");
+		System.out.println(venusaur.inflictStatus(Status.POISON) + " (false)");
+
+		venusaur.cureStatus();
+		System.out.println(venusaur.getStatus() + " (NONE)");
+
+		Pokemon charizard = Pokedex.getPokemon(6);
+		System.out.println(charizard.inflictStatus(Status.BURN) + " (false)");
+
+		Pokemon snorlax = Pokedex.getPokemon(143);
+		snorlax.inflictStatus(Status.SLEEP);
+		System.out.println(snorlax.getSleepTurns() + " (1, 2, or 3)");
 		// Paste the Milestone 8 tests from the Build Guide here, then write
 		// tests for the scenarios under "Also test these."
 	}

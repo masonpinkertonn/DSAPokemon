@@ -34,6 +34,31 @@ public class Pokemon
 	public Pokemon(PokedexEntry entry)
 	{
 		// TODO: Implement this method
+		if (entry == null) {
+			throw new IllegalArgumentException("Entry is Null");
+		}
+		this.entry = entry;
+		this.currentHP = entry.getMaxHP();
+		this.moves = new Move[4];
+		for (int i = 0; i < 4; i++) {
+			Move current = new Move(entry.getDefaultMove(i));
+			moves[i] = current;
+		}
+
+		stats = new HashMap<>();
+
+		stats.put("attack", new Stat(entry.getAttack()));
+		stats.put("defense", new Stat(entry.getDefense()));
+		stats.put("spAttack", new Stat(entry.getSpAttack()));
+		stats.put("spDefense", new Stat(entry.getSpDefense()));
+		stats.put("speed", new Stat(entry.getSpeed()));
+
+		this.status = Status.NONE;
+
+		this.confused = false;
+
+		this.confusionTurns = 0;
+		this.sleepTurns = 0;
 	}
 
 	/**
@@ -266,6 +291,35 @@ public class Pokemon
 	 */
 	public boolean inflictStatus(Status newStatus)
 	{
+		if (newStatus == null || newStatus == Status.NONE)
+		{
+			throw new IllegalArgumentException("newStatus can't be null or NONE");
+		}
+		if (status == newStatus)
+		{
+			return false;
+		}
+		if (newStatus == Status.SLEEP)
+			{
+				status = newStatus;
+				sleepTurns = (int) (Math.random() * 3 )+ 1;
+				return true;
+			}
+		if (newStatus == Status.FREEZE)
+		{
+			status = newStatus;
+			return true;
+		}
+		if (newStatus == Status.POISON)
+		{
+			status = newStatus;
+			return true;
+		}
+		if (newStatus == Status.BURN)
+			{
+				status = newStatus;
+				return true;
+			}
 		return false; // TODO: Implement this method
 	}
 
@@ -274,7 +328,8 @@ public class Pokemon
 	 */
 	public void cureStatus()
 	{
-		// TODO: Implement this method
+		status = Status.NONE;
+		sleepTurns = 0;
 	}
 
 	/**
@@ -285,7 +340,13 @@ public class Pokemon
 	 */
 	public boolean confuse()
 	{
-		return false; // TODO: Implement this method
+		if(!confused)
+		{
+			confused = true;
+			confusionTurns = (int) (Math.random() * 4) + 1;
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -293,7 +354,8 @@ public class Pokemon
 	 */
 	public void cureConfusion()
 	{
-		// TODO: Implement this method
+		confused = false;
+		confusionTurns = 0;
 	}
 
 	/**
@@ -301,7 +363,11 @@ public class Pokemon
 	 */
 	public void switchOut()
 	{
-		// TODO: Implement this method
+		for (Stat stat : stats.values())
+		{
+			stat.reset();
+		}
+		cureConfusion();
 	}
 
 	/**
@@ -417,6 +483,24 @@ public class Pokemon
 	@Override
 	public String toString()
 	{
-		return null; // TODO: Implement this method
+		String result = "";
+
+		result += entry.getName() + " (";
+
+		result += entry.getType1().getName();
+
+		if (entry.getType2() != null) {
+			result += "/" + entry.getType2().getName();
+		}
+
+		result += ") ";
+
+		result += currentHP + "/" + entry.getMaxHP() + " HP";
+
+		if (status != Status.NONE) {
+			result += "[" + status.toString().toLowerCase() + "]";
+		}
+
+		return result; // TODO: Implement this method
 	}
 }
