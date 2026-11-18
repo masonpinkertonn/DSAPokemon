@@ -34,6 +34,31 @@ public class Pokemon
 	public Pokemon(PokedexEntry entry)
 	{
 		// TODO: Implement this method
+		if (entry == null) {
+			throw new IllegalArgumentException("Entry is Null");
+		}
+		this.entry = entry;
+		this.currentHP = entry.getMaxHP();
+		this.moves = new Move[4];
+		for (int i = 0; i < 4; i++) {
+			Move current = new Move(entry.getDefaultMove(i));
+			moves[i] = current;
+		}
+
+		stats = new HashMap<>();
+
+		stats.put("attack", new Stat(entry.getAttack()));
+		stats.put("defense", new Stat(entry.getDefense()));
+		stats.put("spAttack", new Stat(entry.getSpAttack()));
+		stats.put("spDefense", new Stat(entry.getSpDefense()));
+		stats.put("speed", new Stat(entry.getSpeed()));
+
+		this.status = Status.NONE;
+
+		this.confused = false;
+
+		this.confusionTurns = 0;
+		this.sleepTurns = 0;
 	}
 
 	/**
@@ -417,6 +442,24 @@ public class Pokemon
 	@Override
 	public String toString()
 	{
-		return null; // TODO: Implement this method
+		String result = "";
+
+		result += entry.getName() + " (";
+
+		result += entry.getType1().getName();
+
+		if (entry.getType2() != null) {
+			result += "/" + entry.getType2().getName();
+		}
+
+		result += ") ";
+
+		result += currentHP + "/" + entry.getMaxHP() + " HP";
+
+		if (status != Status.NONE) {
+			result += "[" + status.toString().toLowerCase() + "]";
+		}
+
+		return result; // TODO: Implement this method
 	}
 }

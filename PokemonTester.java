@@ -17,14 +17,14 @@ public class PokemonTester
 	{
 		Pokedex.setup();
 
-		testTypeChart();
+		//testTypeChart();
 		/*testMoveEntries();
 		testPokedexEntries();
 		testMoveRolls();
 
-		testStats();
+		testStats();*/
 		testNewPokemon();
-		testPokemonBasics();
+		/*testPokemonBasics();
 		testStatus();
 
 		testDamage();
@@ -133,6 +133,25 @@ public class PokemonTester
 	{
 		// Paste the Milestone 6 tests from the Build Guide here, then write
 		// tests for the scenarios under "Also test these."
+
+		Pokemon charizard = Pokedex.getPokemon(6);
+		System.out.println(charizard + " (Charizard (fire/flying) 164/164 HP)");
+		System.out.println(charizard.getMove(1) + " (Flamethrower (fire, special) 15/15 PP)");
+		System.out.println(charizard.getStat("spAttack").getValue() + " (140)");
+
+		System.out.println(Pokedex.getPokemon(25) + " (Pikachu (electric) 121/121 HP)");
+		System.out.println(Pokedex.getPokemon(151) + " (Mew (psychic) 186/186 HP)");
+
+		// Two Pokemon of the same kind
+		Pokemon pikachu1 = Pokedex.getPokemon(25);
+		Pokemon pikachu2 = Pokedex.getPokemon(25);
+		pikachu1.getMove(0).usePP();
+		pikachu1.getStat("attack").changeStage(2);
+
+		System.out.println((pikachu1 == pikachu2) + " (false)");
+		System.out.println(pikachu2.getMove(0).getCurrentPP() + " (15)");
+		System.out.println(pikachu2.getStat("attack").getStage() + " (0)");
+
 	}
 
 	/**
