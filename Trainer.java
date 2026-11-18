@@ -25,7 +25,7 @@ public class Trainer
 	 * @throws java.lang.IllegalArgumentException if name is null or teamSize is
 	 *     less than 1 or more than 6
 	 */
-	public Trainer(String name, int teamSize)\
+	public Trainer(String name, int teamSize)
 	{
 		if(teamSize < 1 || teamSize > 6){
 			throw new IllegalArgumentException("Team size must be between 1 and 6 inclusive");
@@ -186,7 +186,7 @@ public class Trainer
 		}
 
 		for(Pokemon mon : team){
-			if(mon.isBanned()){
+			if(isBanned(mon.getName())){
 				this.generateTeam();
 				break;
 			}
@@ -215,7 +215,7 @@ public class Trainer
 
 		team.get(index).switchOut();
 		setActiveIndex(index);
-		System.out.println(team.get(index).getName() + " I choose you!");
+		System.out.println(team.get(index).getName() + ", I choose you!");
 
 	}
 
@@ -228,9 +228,11 @@ public class Trainer
 	@Override
 	public String toString()
 	{
-		System.out.println(name +"'s team");
-		for(Pokemon jit : team){
-			System.out.println(jit);
+		
+		String teamString = "";
+		for(Pokemon guh : team){
+			teamString = teamString + guh.toString() + "\n";
 		}
+		return name + "'s team:\n" + teamString;
 	}
 }

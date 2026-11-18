@@ -190,11 +190,11 @@ public class PokemonTester
 		Cuh.getTeam().add(Pokedex.getPokemon(23));
 		Cuh.getTeam().add(Pokedex.getPokemon(17));
 		Cuh.getTeam().add(Pokedex.getPokemon(120));
-		Cuh.getTeam().add(Pokedex.getPokemon(116)));
+		Cuh.getTeam().add(Pokedex.getPokemon(116));
 		Cuh.getTeam().add(Pokedex.getPokemon(1));
 
 		Boolean magiBanned = Trainer.isBanned("Magikarp");
-		Boolean pikaBanned = Traner.isBanned("Pikachu");
+		Boolean pikaBanned = Trainer.isBanned("Pikachu");
 
 	}
 
