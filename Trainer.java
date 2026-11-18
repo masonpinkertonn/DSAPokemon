@@ -27,7 +27,12 @@ public class Trainer
 	 */
 	public Trainer(String name, int teamSize)
 	{
-		// TODO: Implement this method
+		if(teamSize < 1 || teamSize > 6){
+			throw new IllegalArgumentException("Team size must be between 1 and 6 inclusive");
+		}
+
+		this.name = name;
+		this.teamSize = teamSize;
 	}
 
 	/**
@@ -99,7 +104,11 @@ public class Trainer
 	 */
 	public static boolean isBanned(String pokemonName)
 	{
-		return false; // TODO: Implement this method
+		if(BANNED_POKEMON.contains(pokemonName)){
+			return true;
+		} 
+
+		return false;
 	}
 
 	/**
@@ -109,7 +118,14 @@ public class Trainer
 	 */
 	public int getNumRemaining()
 	{
-		return 0; // TODO: Implement this method
+		int count = 0;
+		for(Pokemon curh : team){
+			if(curh.isFainted()){
+				count++;
+			}
+		}
+		
+		return teamSize - count; 
 	}
 
 	/**
@@ -119,7 +135,11 @@ public class Trainer
 	 */
 	public boolean isDefeated()
 	{
-		return false; // TODO: Implement this method
+		if(this.getNumRemaining() == 0){
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -129,7 +149,10 @@ public class Trainer
 	 */
 	public boolean canSwitch()
 	{
-		return false; // TODO: Implement this method
+		if(this.getNumRemaining() > 1){
+			return true;
+		}
+		return false; 
 	}
 
 	/**
@@ -141,7 +164,13 @@ public class Trainer
 	 */
 	public ArrayList<Integer> getRandomIndexes(int length)
 	{
-		return null; // TODO: Implement this method
+		ArrayList<Integer> out = new ArrayList<>();
+
+		for(int i = 0; i < teamSize; i++){
+			out.add((int)(Math.random()*length)+1);
+		}
+
+		return out;
 	}
 
 	/**
@@ -150,8 +179,20 @@ public class Trainer
 	 */
 	public void generateTeam()
 	{
-		// TODO: Implement this method
+		ArrayList<Integer> indices = getRandomIndexes(151);
+
+		for(int i = 0; i < teamSize; i++){
+			team.set(i, Pokedex.getPokemon(indices.get(i)));
+		}
+
+		for(Pokemon mon : team){
+			if(isBanned(mon.getName())){
+				this.generateTeam();
+				break;
+			}
+		}
 	}
+
 
 	/**
 	 * Switches the active Pokemon out of battle and sends in the Pokemon at the
@@ -164,7 +205,18 @@ public class Trainer
 	 */
 	public void switchTo(int index)
 	{
-		// TODO: Implement this method
+		if(index > teamSize - 1){
+			throw new IndexOutOfBoundsException("Please choose a valid index.");
+		}
+
+		if(team.get(index).isFainted()){
+			throw new IllegalArgumentException("That pokemon has fainted. Please choose another.");
+		}
+
+		team.get(index).switchOut();
+		setActiveIndex(index);
+		System.out.println(team.get(index).getName() + ", I choose you!");
+
 	}
 
 	/**
@@ -176,6 +228,11 @@ public class Trainer
 	@Override
 	public String toString()
 	{
-		return null; // TODO: Implement this method
+		
+		String teamString = "";
+		for(Pokemon guh : team){
+			teamString = teamString + guh.toString() + "\n";
+		}
+		return name + "'s team:\n" + teamString;
 	}
 }
