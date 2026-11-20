@@ -33,6 +33,11 @@ public class Trainer
 
 		this.name = name;
 		this.teamSize = teamSize;
+		team = new ArrayList<Pokemon>();
+
+		for(int i = 0; i < teamSize; i++){
+			team.add(null);
+		}
 	}
 
 	/**
