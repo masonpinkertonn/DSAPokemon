@@ -17,7 +17,7 @@ public class PokemonTester
 	{
 		Pokedex.setup();
 
-		testTypeChart();
+		//testTypeChart();
 		/*testMoveEntries();
 		testPokedexEntries();
 		testMoveRolls();*/
@@ -28,7 +28,7 @@ public class PokemonTester
 		
 		//testStats();
 		//testNewPokemon();
-		testPokemonBasics();
+		//testPokemonBasics();
 		/*testStatus();
 
 		/*testDamage();
