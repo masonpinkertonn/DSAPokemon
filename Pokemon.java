@@ -221,7 +221,12 @@ public class Pokemon
 	 */
 	public boolean isFainted()
 	{
-		return false; // TODO: Implement this method
+		if(currentHP == 0)
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -233,7 +238,21 @@ public class Pokemon
 	 */
 	public int takeDamage(int amount)
 	{
-		return 0; // TODO: Implement this method
+		if (amount < 0)
+		{
+			throw new IllegalArgumentException("amount can't be negative");
+		}
+		if(currentHP - amount < 0)
+		{
+			int temp = currentHP;
+			currentHP = 0;
+			return temp;
+		}
+		else
+		{
+			currentHP -= amount;
+			return amount;
+		}
 	}
 
 	/**
@@ -245,7 +264,21 @@ public class Pokemon
 	 */
 	public int restoreHP(int amount)
 	{
-		return 0; // TODO: Implement this method
+		if(amount < 0)
+		{
+			throw new IllegalArgumentException("amount can't be negative");
+		}
+		if(currentHP + amount > entry.getMaxHP())
+			{
+				int temp = entry.getMaxHP() - currentHP;
+				currentHP = entry.getMaxHP();
+				return temp;
+			}
+			else
+				{
+					currentHP += amount;
+					return amount;
+				}
 	}
 
 	/**
@@ -255,7 +288,14 @@ public class Pokemon
 	 */
 	public boolean hasPPRemaining()
 	{
-		return false; // TODO: Implement this method
+		for(Move move : moves)
+			{
+				if(move != null && move.getCurrentPP() > 0)
+					{
+						return true;
+					}
+			}
+		return false;
 	}
 
 	/**
@@ -265,7 +305,12 @@ public class Pokemon
 	 */
 	public int getBattleSpeed()
 	{
-		return 0; // TODO: Implement this method
+		int speed = stats.get("speed").getValue();
+		if (status == Status.PARALYZE)
+		{
+			speed /= 2;
+		}
+		return speed;
 	}
 
 	/**
@@ -277,7 +322,19 @@ public class Pokemon
 	 */
 	public double getTypeEffectiveness(Type attackingType)
 	{
-		return 0.0; // TODO: Implement this method
+		if (attackingType == null)
+		{
+			throw new IllegalArgumentException("attackingType can't be null");
+		}
+		if(entry.getType2() != null)
+		{
+			return attackingType.getEffectiveness(entry.getType1()) * attackingType.getEffectiveness(entry.getType2());
+		}
+		else if(entry.getType2() == null)
+		{
+			return attackingType.getEffectiveness(entry.getType1());
+		}
+		return 0.0;
 	}
 
 	/**

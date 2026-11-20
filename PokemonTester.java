@@ -175,6 +175,18 @@ public class PokemonTester
 	 */
 	private static void testPokemonBasics()
 	{
+				Pokemon venusaur = Pokedex.getPokemon(3);
+		System.out.println(venusaur.isFainted() + " (false)");
+		System.out.println(venusaur.takeDamage(50) + " (50)");
+		System.out.println(venusaur.getCurrentHP() + " (116)");
+
+		System.out.println(venusaur.restoreHP(80) + " (50)");
+		System.out.println(venusaur.getCurrentHP() + " (166)");
+
+		Pokemon charizard = Pokedex.getPokemon(6);
+		System.out.println(charizard.getBattleSpeed() + " (131)");
+		System.out.println(venusaur.getTypeEffectiveness(Pokedex.getType("fire")) + " (2.0)");
+		System.out.println(charizard.getTypeEffectiveness(Pokedex.getType("ground")) + " (0.0)");
 		// Paste the Milestone 7 tests from the Build Guide here, then write
 		// tests for the scenarios under "Also test these."
 	}
