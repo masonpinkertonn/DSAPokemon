@@ -29,15 +29,16 @@ public class PokemonTester
 		//testNewPokemon();
 		//testPokemonBasics();
 		
-		testStats();
-		testNewPokemon();
+		//testStats();
+		//testNewPokemon();
+		testTrainer();
 		/*testPokemonBasics();
 		testStatus();*/
 
 		testDamage();
 		/*testHPChanges();
 		testUsingMoves();
-		testTrainer();
+		
 
 		testBattler();*/
 
@@ -176,6 +177,18 @@ public class PokemonTester
 	 */
 	private static void testPokemonBasics()
 	{
+				Pokemon venusaur = Pokedex.getPokemon(3);
+		System.out.println(venusaur.isFainted() + " (false)");
+		System.out.println(venusaur.takeDamage(50) + " (50)");
+		System.out.println(venusaur.getCurrentHP() + " (116)");
+
+		System.out.println(venusaur.restoreHP(80) + " (50)");
+		System.out.println(venusaur.getCurrentHP() + " (166)");
+
+		Pokemon charizard = Pokedex.getPokemon(6);
+		System.out.println(charizard.getBattleSpeed() + " (131)");
+		System.out.println(venusaur.getTypeEffectiveness(Pokedex.getType("fire")) + " (2.0)");
+		System.out.println(charizard.getTypeEffectiveness(Pokedex.getType("ground")) + " (0.0)");
 		// Paste the Milestone 7 tests from the Build Guide here, then write
 		// tests for the scenarios under "Also test these."
 	}
@@ -248,16 +261,24 @@ public class PokemonTester
 
 		Trainer Cuh = new Trainer("Cuh", 6);
 
-		Cuh.getTeam().add(Pokedex.getPokemon(12));
-		Cuh.getTeam().add(Pokedex.getPokemon(23));
-		Cuh.getTeam().add(Pokedex.getPokemon(17));
-		Cuh.getTeam().add(Pokedex.getPokemon(120));
-		Cuh.getTeam().add(Pokedex.getPokemon(116));
-		Cuh.getTeam().add(Pokedex.getPokemon(1));
+		Cuh.generateTeam();
+		
+		System.out.println(Cuh);
 
 		Boolean magiBanned = Trainer.isBanned("Magikarp");
 		Boolean pikaBanned = Trainer.isBanned("Pikachu");
+		System.out.println("Magikarp: " + magiBanned + "\nPikachu: " + pikaBanned);
 
+		Trainer Guh = new Trainer("Guh", 3);
+		System.out.println(Guh.getRandomIndexes(151));
+
+		Trainer ash = new Trainer("Ash", 3);
+		ash.getTeam().set(0, Pokedex.getPokemon(25));
+		ash.getTeam().set(1, Pokedex.getPokemon(6));
+		ash.getTeam().set(2, Pokedex.getPokemon(131));
+		ash.setActiveIndex(0);
+
+		System.out.println(ash);
 	}
 
 	/**
