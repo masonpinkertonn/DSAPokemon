@@ -17,7 +17,8 @@ public class PokemonTester
 	{
 		Pokedex.setup();
 
-		testTypeChart();
+		//testTypeChart();
+		//testTypeChart();
 		/*testMoveEntries();
 		testPokedexEntries();
 		testMoveRolls();*/
@@ -26,15 +27,16 @@ public class PokemonTester
 		//testNewPokemon();
 		//testPokemonBasics();
 		
-		testStats();
-		testNewPokemon();
+		//testStats();
+		//testNewPokemon();
+		testTrainer();
 		/*testPokemonBasics();
 		testStatus();
 
 		/*testDamage();
 		testHPChanges();
 		testUsingMoves();
-		testTrainer();
+		
 
 		testBattler();*/
 
@@ -233,22 +235,24 @@ public class PokemonTester
 
 		Trainer Cuh = new Trainer("Cuh", 6);
 
-		Cuh.getTeam().add(Pokedex.getPokemon(12));
-		Cuh.getTeam().add(Pokedex.getPokemon(23));
-		Cuh.getTeam().add(Pokedex.getPokemon(17));
-		Cuh.getTeam().add(Pokedex.getPokemon(120));
-		Cuh.getTeam().add(Pokedex.getPokemon(116));
-		Cuh.getTeam().add(Pokedex.getPokemon(1));
-		Cuh.setActiveIndex(0);
-
+		Cuh.generateTeam();
+		
 		System.out.println(Cuh);
 
 		Boolean magiBanned = Trainer.isBanned("Magikarp");
 		Boolean pikaBanned = Trainer.isBanned("Pikachu");
 		System.out.println("Magikarp: " + magiBanned + "\nPikachu: " + pikaBanned);
 
-		
+		Trainer Guh = new Trainer("Guh", 3);
+		System.out.println(Guh.getRandomIndexes(151));
 
+		Trainer ash = new Trainer("Ash", 3);
+		ash.getTeam().set(0, Pokedex.getPokemon(25));
+		ash.getTeam().set(1, Pokedex.getPokemon(6));
+		ash.getTeam().set(2, Pokedex.getPokemon(131));
+		ash.setActiveIndex(0);
+
+		System.out.println(ash);
 	}
 
 	/**
