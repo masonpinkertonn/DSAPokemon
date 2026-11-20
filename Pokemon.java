@@ -418,7 +418,41 @@ public class Pokemon
 	public int calculateDamage(Move move, Pokemon defender, boolean isCritical,
 		int randomPercent)
 	{
-		return 0; // TODO: Implement this method
+		int random = (int) (Math.random() * 16) + 85;
+		double randomAsDec = random * 0.01;
+
+		double stab = 1;
+
+		double A = (move.getCategory() == Category.PHYSICAL ? stats.get("attack").getValue() : stats.get("spAttack").getValue());
+		double D = (move.getCategory() == Category.PHYSICAL ? defender.getStat("attack").getValue() : defender.getStat("spAttack").getValue());
+
+		if (move.getType().equals(getType1()) || move.getType().equals(getType2())) {
+			stab = 1.5;
+		}
+
+		double effec = getTypeEffectiveness(move.getType());
+
+		double crit = 1;
+
+		if (isCritical) {
+			crit = 1.5;
+		}
+
+		double burn = (status == Status.BURN && move.getCategory() == Category.PHYSICAL ? 0.5 : 1);
+
+		int base = (int) (22 * move.getPower() * A / D);
+
+		base = (int) (base / 50.0);
+
+		base += 2;
+
+		//System.out.println(base);
+
+		//System.out.println(effec);
+
+		int damage = (int) (base * randomPercent * 0.01 * stab * effec * crit * burn);
+
+		return damage;
 	}
 
 	/**

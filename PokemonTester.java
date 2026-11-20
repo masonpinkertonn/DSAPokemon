@@ -1,3 +1,5 @@
+
+
 /**
  * Tests the project one milestone at a time, and plays a full battle once
  * everything works.
@@ -30,10 +32,10 @@ public class PokemonTester
 		testStats();
 		testNewPokemon();
 		/*testPokemonBasics();
-		testStatus();
+		testStatus();*/
 
-		/*testDamage();
-		testHPChanges();
+		testDamage();
+		/*testHPChanges();
 		testUsingMoves();
 		testTrainer();
 
@@ -207,6 +209,18 @@ public class PokemonTester
 	private static void testDamage()
 	{
 		// Write your Milestone 9 tests here.
+
+		Pokemon venusaur = Pokedex.getPokemon(3);
+		Pokemon charizard = Pokedex.getPokemon(6);
+
+		MoveEntry flamethrower = Pokedex.getMoveEntry("Flamethrower");
+
+		Move flamethrowermove = new Move(flamethrower);
+
+		int dmg = charizard.calculateDamage(flamethrowermove, venusaur, false,
+		85);
+
+		System.out.println(dmg);
 	}
 
 	/**
