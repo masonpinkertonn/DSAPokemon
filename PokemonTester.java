@@ -17,8 +17,7 @@ public class PokemonTester
 	{
 		Pokedex.setup();
 
-		//testTypeChart();
-		//testTypeChart();
+		testTypeChart();
 		/*testMoveEntries();
 		testPokedexEntries();
 		testMoveRolls();*/
@@ -252,9 +251,15 @@ public class PokemonTester
 		Cuh.getTeam().add(Pokedex.getPokemon(120));
 		Cuh.getTeam().add(Pokedex.getPokemon(116));
 		Cuh.getTeam().add(Pokedex.getPokemon(1));
+		Cuh.setActiveIndex(0);
+
+		System.out.println(Cuh);
 
 		Boolean magiBanned = Trainer.isBanned("Magikarp");
 		Boolean pikaBanned = Trainer.isBanned("Pikachu");
+		System.out.println("Magikarp: " + magiBanned + "\nPikachu: " + pikaBanned);
+
+		
 
 	}
 
